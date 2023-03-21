@@ -7,12 +7,23 @@
   let canvas;
   let inputImage: HTMLInputElement;
   let hex = '#F9BB01';
+  let width = 600;
+
+  const getWidth = () => {
+    if(window.innerWidth < 600) return window.innerWidth;
+    return 600;
+  }
 
   onMount(()=>{
     canvas = new fabric.Canvas('canvas');
+    width = getWidth();
+
+    canvas.setWidth(width * canvas.getZoom());
+    canvas.setHeight(width * canvas.getZoom());
+
     fabric.Image.fromURL(devJeans, function(img) {
-      img.scaleToWidth(600);
-      img.scaleToWidth(600);
+      img.scaleToWidth(width);
+      img.scaleToWidth(width);
       img.selectable = false;
       canvas.add(img)
       canvas.renderAll()
@@ -34,12 +45,15 @@
     const url = URL.createObjectURL(file);
 
     fabric.Image.fromURL(url, function (img) {
+      const left = 235 / 600;
+      const top = 360 / 600;
+
       img.set({
-          left: 235,
-          top: 360,
+          left: left * width,
+          top: top * width,
           angle: -10,
       });
-      img.scaleToWidth(100);
+      img.scaleToWidth(width / 6);
       canvas.add(img);
     });
   }
@@ -52,9 +66,9 @@
   }
 </script>
 
-<main>
+<main style={`width: ${width}`}>
   <h1>~개발진스짤 만들어 쓰기~</h1>
-  <canvas id="canvas" width="600" height="600" style="border:1px solid #ccc"></canvas>
+  <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc"></canvas>
   
   <div class="toolbar">
     <div>
@@ -85,7 +99,7 @@
   </div>
 </main>
 
-<footer>
+<footer style={`width: ${width}`}>
   <span>
     Instagram: <a href="https://www.instagram.com/dev_hee/">@dev_hee</a>
   </span>
@@ -109,7 +123,6 @@
     align-items: center;
     justify-content: center;
     color: rgb(56, 56, 56);
-    min-width: 600px;
   }
   footer{
     flex-direction: row;
@@ -120,7 +133,8 @@
  .toolbar {
     display: flex;
     justify-content: center;
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     margin: 20px auto;
     padding: 20px 0;
     border: 1px solid #ccc;
