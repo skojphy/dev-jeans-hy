@@ -90,7 +90,7 @@
     Instagram: <a href="https://www.instagram.com/dev_hee/">@dev_hee</a>
   </span>
   <span>
-    Blog: <a href="https://www.instagram.com/dev_hee/">@pigme</a>
+    Blog: <a href="https://velog.io/@heelieben">@pigme</a>
   </span>
 
 </footer>
