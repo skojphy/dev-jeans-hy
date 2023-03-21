@@ -27,20 +27,28 @@
   const handleAddImage = (e: Event & {
     currentTarget: EventTarget & HTMLInputElement;
 }) => {
+    removeImage();
     const files = e.currentTarget.files;
-        if (!files) return;
-        const file = files[0];
-        const url = URL.createObjectURL(file);
-  
-        fabric.Image.fromURL(url, function (img) {
-          img.set({
-              left: 235,
-              top: 360,
-              angle: -10,
-          });
-          img.scaleToWidth(100);
-          canvas.add(img);
-        });
+    if (!files) return;
+    const file = files[0];
+    const url = URL.createObjectURL(file);
+
+    fabric.Image.fromURL(url, function (img) {
+      img.set({
+          left: 235,
+          top: 360,
+          angle: -10,
+      });
+      img.scaleToWidth(100);
+      canvas.add(img);
+    });
+  }
+
+  const removeImage = ()=> {
+    const objects = canvas.getObjects();
+    if(objects.length === 1) return;
+    const lastObject = objects[objects.length - 1];
+    canvas.remove(lastObject);
   }
 </script>
 
@@ -58,12 +66,8 @@
       <h2>사진 추가</h2>
 
       <div>
-      <button on:click={() => inputImage.click()}>추가</button>
-      <button on:click={() => {
-        const objects = canvas.getObjects();
-        const lastObject = objects[objects.length - 1];
-        canvas.remove(lastObject);
-      }}>제거</button>
+        <button on:click={() => inputImage.click()}>추가</button>
+        <button on:click={removeImage}>제거</button>
       </div>
       <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
     </div>
@@ -135,5 +139,6 @@
     border-radius: 4px;
     background-color: #fff;
     font-weight: 700;
+    cursor: pointer;
   }
 </style>
