@@ -75,7 +75,7 @@
     <div>
       <h2>내보내기</h2>
       <button on:click={(e) => {
-        const data = canvas.toDataURL({format: 'png', quality: 1});
+        const data = canvas.toDataURL({format: 'png', quality: 1, multiplier: 4});
         const link = document.createElement('a');
         link.download = 'dev-jeans.png';
         link.href = data;
