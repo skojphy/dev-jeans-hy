@@ -108,7 +108,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: rgb(56, 56, 56)
+    color: rgb(56, 56, 56);
+    min-width: 600px;
   }
   footer{
     flex-direction: row;
