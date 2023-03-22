@@ -1,6 +1,7 @@
 import type {fabric} from 'fabric'
 import {writable} from 'svelte/store'
-import createMapStore from '../lib/createMapStore'
+
+export const background = writable('#F9BB01')
 
 export const canvas = writable<fabric.Canvas | null>()
 export const width = writable(600)

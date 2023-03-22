@@ -1,14 +1,13 @@
 <script lang="ts">
   import {fabric} from 'fabric'
   import ColorPicker from 'svelte-awesome-color-picker'
-  import {canvas, width} from '../../store/canvas'
+  import {background, canvas, width} from '../../store/canvas'
   import watermark from '../../assets/watermark.png'
 
   let inputImage: HTMLInputElement
-  let hex = '#F9BB01'
 
   $: if ($canvas) {
-    $canvas.setBackgroundColor(hex, () => {
+    $canvas.setBackgroundColor($background, () => {
       $canvas.renderAll()
     })
   }
@@ -67,7 +66,7 @@
 <div class="toolbar">
   <div>
     <h2>배경색</h2>
-    <ColorPicker bind:hex isA11yClosable={false} label="배경색" />
+    <ColorPicker bind:hex={$background} isA11yClosable={false} label="배경색" />
   </div>
 
   <div>
