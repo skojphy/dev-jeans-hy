@@ -3,9 +3,7 @@
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
   import Toolbar from './components/Toolbar.svelte'
-
-  let canvas
-  let width = 600
+  import {canvas, width} from './store/canvas'
 
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
@@ -13,18 +11,18 @@
   }
 
   const initCanvas = () => {
-    canvas = new fabric.Canvas('canvas')
-    width = getWidth()
+    $canvas = new fabric.Canvas('canvas')
+    $width = getWidth()
 
-    canvas.setWidth(width * canvas.getZoom())
-    canvas.setHeight(width * canvas.getZoom())
+    $canvas.setWidth($width * $canvas.getZoom())
+    $canvas.setHeight($width * $canvas.getZoom())
 
     fabric.Image.fromURL(devJeans, function (img) {
-      img.scaleToWidth(width)
-      img.scaleToWidth(width)
+      img.scaleToWidth($width)
+      img.scaleToWidth($width)
       img.selectable = false
-      canvas.add(img)
-      canvas.renderAll()
+      $canvas.add(img)
+      $canvas.renderAll()
     })
   }
 
@@ -36,9 +34,9 @@
   <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc" />
 </main>
 
-<Toolbar {canvas} {width} />
+<Toolbar />
 
-<footer style={`width: ${width}`}>
+<footer style={`width: ${$width}`}>
   <span>
     Instagram: <a href="https://www.instagram.com/dev_hee/">@dev_hee</a>
   </span>
@@ -68,31 +66,5 @@
     gap: 10px;
     font-weight: 800;
     color: rgb(98, 98, 98);
-  }
-  .toolbar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-  }
-  .toolbar > div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  button {
-    padding: 5px 10px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    font-weight: 700;
-    cursor: pointer;
   }
 </style>
