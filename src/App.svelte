@@ -40,9 +40,9 @@
       currentTarget: EventTarget & HTMLInputElement
     },
   ) => {
-    removeImage()
     const files = e.currentTarget.files
     if (!files) return
+    removeImage()
     const file = files[0]
     const url = URL.createObjectURL(file)
 
