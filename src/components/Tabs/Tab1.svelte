@@ -19,8 +19,9 @@
   ) => {
     const files = e.currentTarget.files
     if (!files) return
-    removeImage()
     const file = files[0]
+    if (!file) return
+    removeImage()
     const url = URL.createObjectURL(file)
 
     fabric.Image.fromURL(url, function (img) {
