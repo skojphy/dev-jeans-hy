@@ -1,12 +1,10 @@
 <script lang="ts">
   import devJeans from './assets/dev-jeans.png'
-  import ColorPicker from 'svelte-awesome-color-picker'
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
+  import Toolbar from './components/Toolbar.svelte'
 
   let canvas
-  let inputImage: HTMLInputElement
-  let hex = '#F9BB01'
   let width = 600
 
   const getWidth = () => {
@@ -14,7 +12,7 @@
     return 600
   }
 
-  onMount(() => {
+  const initCanvas = () => {
     canvas = new fabric.Canvas('canvas')
     width = getWidth()
 
@@ -28,80 +26,17 @@
       canvas.add(img)
       canvas.renderAll()
     })
-  })
-
-  $: if (canvas) {
-    canvas.setBackgroundColor(hex)
-    canvas.renderAll()
   }
 
-  const handleAddImage = (
-    e: Event & {
-      currentTarget: EventTarget & HTMLInputElement
-    },
-  ) => {
-    removeImage()
-    const files = e.currentTarget.files
-    if (!files) return
-    const file = files[0]
-    const url = URL.createObjectURL(file)
-
-    fabric.Image.fromURL(url, function (img) {
-      const left = 235 / 600
-      const top = 360 / 600
-
-      img.set({
-        left: left * width,
-        top: top * width,
-        angle: -10,
-      })
-      img.scaleToWidth(width / 6)
-      canvas.add(img)
-    })
-  }
-
-  const removeImage = () => {
-    const objects = canvas.getObjects()
-    if (objects.length === 1) return
-    const lastObject = objects[objects.length - 1]
-    canvas.remove(lastObject)
-  }
+  onMount(initCanvas)
 </script>
 
 <main style={`width: ${width}`}>
   <h1>~개발진스짤 만들어 쓰기~</h1>
   <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc" />
-
-  <div class="toolbar">
-    <div>
-      <h2>배경색</h2>
-      <ColorPicker bind:hex isA11yClosable={false} label="배경색" />
-    </div>
-
-    <div>
-      <h2>사진 추가</h2>
-
-      <div>
-        <button on:click={() => inputImage.click()}>추가</button>
-        <button on:click={removeImage}>제거</button>
-      </div>
-      <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
-    </div>
-
-    <div>
-      <h2>내보내기</h2>
-      <button
-        on:click={(e) => {
-          const data = canvas.toDataURL({format: 'png', quality: 1, multiplier: 4})
-          const link = document.createElement('a')
-          link.download = 'dev-jeans.png'
-          link.href = data
-          link.click()
-        }}>저장</button
-      >
-    </div>
-  </div>
 </main>
+
+<Toolbar {canvas} {width} />
 
 <footer style={`width: ${width}`}>
   <span>
