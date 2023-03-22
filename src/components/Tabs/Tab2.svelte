@@ -104,14 +104,6 @@
     align-items: center;
   }
 
-  li {
-    list-style: none;
-  }
-
-  ul {
-    padding: 0;
-  }
-
   .toolbar {
     display: flex;
     justify-content: center;
