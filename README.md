@@ -4,4 +4,4 @@
 
 <img src="/src/assets/dev-jeans-icon.png" width="300" />
 
-> 그래서 만들었다 [개발진스 페이지](https://dev-jeans.web.app/)
+> 그래서 만들었다 [개발진스 페이지](https://dev-jeans-9f478.web.app/)
