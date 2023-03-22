@@ -3,8 +3,11 @@
   import ColorPicker from 'svelte-awesome-color-picker'
   import {background, canvas, width} from '../../store/canvas'
   import watermark from '../../assets/watermark.png'
+  import Modal from '../Modal/Modal.svelte'
 
   let inputImage: HTMLInputElement
+  let showModal = false
+  let resultImage: string = ''
 
   $: if ($canvas) {
     $canvas.setBackgroundColor($background, () => {
@@ -45,7 +48,7 @@
     costumeObjects.forEach((obj) => $canvas.remove(obj))
   }
 
-  const saveImage = () => {
+  const createImage = () => {
     fabric.Image.fromURL(watermark, function (img) {
       img.scaleToWidth($width)
       img.scaleToWidth($width)
@@ -53,16 +56,26 @@
       $canvas.add(img)
       $canvas.renderAll()
 
-      const data = $canvas.toDataURL({format: 'png', quality: 1, multiplier: 4})
-      const link = document.createElement('a')
-      link.download = 'dev-jeans.png'
-      link.href = data
-      link.click()
+      resultImage = $canvas.toDataURL({format: 'png', quality: 1, multiplier: 4})
 
       $canvas.remove(img)
+      showModal = true
     })
   }
+
+  const saveImage = () => {
+    const link = document.createElement('a')
+    link.download = 'dev-jeans.png'
+    link.href = resultImage
+    link.click()
+  }
 </script>
+
+<Modal bind:showModal>
+  <h2 slot="header">짜잔~ 완성된 이미지에요.</h2>
+  <img src={resultImage} alt="데브진스" />
+  <button class="save" on:click={saveImage}>저장하기</button>
+</Modal>
 
 <div class="toolbar">
   <div>
@@ -81,8 +94,8 @@
   </div>
 
   <div>
-    <h2>내보내기</h2>
-    <button on:click={saveImage}>저장</button>
+    <h2>이미지</h2>
+    <button on:click={createImage}>만들기</button>
   </div>
 </div>
 
@@ -118,5 +131,9 @@
     width: 100%;
     margin-bottom: 5px;
     font-size: 12px;
+  }
+
+  .save {
+    margin-top: 20px;
   }
 </style>
