@@ -73,7 +73,7 @@
   <div>
     <h2>사진 추가</h2>
 
-    <div class="photo-toolbar">
+    <div>
       <button on:click={() => inputImage.click()}>추가</button>
       <button on:click={removeImage}>제거</button>
     </div>
@@ -104,13 +104,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin: 0 5px;
-  }
-
-  .photo-toolbar {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    margin: 5px;
   }
 
   button {
@@ -122,6 +116,7 @@
     font-weight: 700;
     cursor: pointer;
     width: 100%;
-    margin: 0 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
   }
 </style>

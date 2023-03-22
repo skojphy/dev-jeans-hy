@@ -137,6 +137,7 @@
     font-weight: 700;
     cursor: pointer;
     width: 100%;
+    font-size: 12px;
   }
 
   button.active {
