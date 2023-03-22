@@ -24,7 +24,7 @@
     border-radius: 0.2em;
     border: none;
     padding: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
     max-width: 600px;
     top: 50%;
