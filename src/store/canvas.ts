@@ -1,15 +1,15 @@
 import type {fabric} from 'fabric'
 import {writable} from 'svelte/store'
 
-import glassesImg from '../assets/costume/glasses.png'
-import laptopImg from '../assets/costume/laptop.png'
-import hairImg from '../assets/costume/hair.png'
-import coffeeImg from '../assets/costume/coffee.png'
-import gogglesImg from '../assets/costume/goggles.png'
-import hairbandImg from '../assets/costume/hairband.png'
-import headphonesImg from '../assets/costume/headphones.png'
-import basketballImg from '../assets/costume/basketball.png'
-import basketballVestImg from '../assets/costume/basketballVest.png'
+import glassesImg from 'src/assets/costume/glasses.png'
+import laptopImg from 'src/assets/costume/laptop.png'
+import hairImg from 'src/assets/costume/hair.png'
+import coffeeImg from 'src/assets/costume/coffee.png'
+import gogglesImg from 'src/assets/costume/goggles.png'
+import hairbandImg from 'src/assets/costume/hairband.png'
+import headphonesImg from 'src/assets/costume/headphones.png'
+import basketballImg from 'src/assets/costume/basketball.png'
+import basketballVestImg from 'src/assets/costume/basketballVest.png'
 
 export const background = writable('#F9BB01')
 
