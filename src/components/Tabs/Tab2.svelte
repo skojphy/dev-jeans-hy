@@ -1,6 +1,13 @@
 <script lang="ts">
   import {fabric} from 'fabric'
+  import {logEvent} from 'firebase/analytics'
+  import {onMount} from 'svelte'
+  import {analytics} from '../../firebase'
   import {canvas, width, hasCostume, costumeInfo, toggleCostume, type CostumeKeys} from '../../store/canvas'
+
+  onMount(() => {
+    logEvent(analytics, '꾸미기 탭 진입')
+  })
 
   const addCostume = (costume: CostumeKeys) => {
     let costumeImg = costumeInfo[costume].src
