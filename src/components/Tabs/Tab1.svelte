@@ -80,29 +80,24 @@
 <div class="toolbar">
   <div>
     <h2>배경색</h2>
-    <ColorPicker bind:hex={$background} isA11yClosable={false} label="배경색" />
+    <ColorPicker bind:hex={$background} isA11yClosable={false} label="선택하기" />
   </div>
 
   <div>
     <h2>사진 추가</h2>
 
-    <div>
+    <div class="photo-buttons">
       <button on:click={() => inputImage.click()}>추가</button>
       <button on:click={removeImage}>제거</button>
     </div>
     <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
   </div>
-
-  <div>
-    <h2>이미지</h2>
-    <button on:click={createImage}>만들기</button>
-  </div>
 </div>
 
 <style>
   h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
     word-break: keep-all;
   }
 
@@ -129,8 +124,13 @@
     font-weight: 700;
     cursor: pointer;
     width: 100%;
-    margin-bottom: 5px;
+    margin: 5px;
     font-size: 12px;
+  }
+
+  .photo-buttons {
+    display: flex;
+    width: 100%;
   }
 
   .save {
