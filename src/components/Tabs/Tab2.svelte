@@ -11,6 +11,7 @@
 
   const addCostume = (costume: CostumeKeys) => {
     let costumeImg = costumeInfo[costume].src
+    logEvent(analytics, `${costumeInfo[costume].title} 추가`)
 
     fabric.Image.fromURL(costumeImg, function (img) {
       img.scaleToWidth($width)
@@ -19,12 +20,22 @@
 
       img.set('costume', costume)
       $canvas.add(img)
+
+      // 캔버스의 오브젝트들을 순회하며 basketball은 가장 위로 올림
+      // TODO. index를 custome 마다 관리해야함
+      $canvas.getObjects().forEach((obj) => {
+        if (obj.costume === 'basketball') {
+          $canvas.moveTo(obj, 100)
+        }
+      })
+
       $canvas.renderAll()
     })
   }
 
   const removeCostume = (costume: CostumeKeys) => {
     const objects = $canvas.getObjects()
+    logEvent(analytics, `${costumeInfo[costume].title} 제거`)
     const costumeObjects = objects.filter((obj) => obj.costume === costume)
     costumeObjects.forEach((obj) => $canvas.remove(obj))
   }
@@ -77,15 +88,15 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .toolbar > li {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 5px;
+    margin: 5px;
   }
 
   button {

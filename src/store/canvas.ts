@@ -5,6 +5,11 @@ import glassesImg from '../assets/costume/glasses.png'
 import laptopImg from '../assets/costume/laptop.png'
 import hairImg from '../assets/costume/hair.png'
 import coffeeImg from '../assets/costume/coffee.png'
+import gogglesImg from '../assets/costume/goggles.png'
+import hairbandImg from '../assets/costume/hairband.png'
+import headphonesImg from '../assets/costume/headphones.png'
+import basketballImg from '../assets/costume/basketball.png'
+import basketballVestImg from '../assets/costume/basketballVest.png'
 
 export const background = writable('#F9BB01')
 
@@ -16,6 +21,11 @@ const defaultCostume = {
   hair: false,
   laptop: false,
   coffee: false,
+  goggles: false,
+  hairband: false,
+  headphones: false,
+  basketball: false,
+  basketballVest: false,
 }
 
 export type CostumeKeys = keyof typeof defaultCostume
@@ -36,6 +46,26 @@ export const costumeInfo = {
   coffee: {
     title: '커피',
     src: coffeeImg,
+  },
+  goggles: {
+    title: '고글',
+    src: gogglesImg,
+  },
+  headphones: {
+    title: '헤드폰',
+    src: headphonesImg,
+  },
+  hairband: {
+    title: '농구 머리띠',
+    src: hairbandImg,
+  },
+  basketballVest: {
+    title: '농구 조끼',
+    src: basketballVestImg,
+  },
+  basketball: {
+    title: '농구 공',
+    src: basketballImg,
   },
 }
 
