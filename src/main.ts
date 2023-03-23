@@ -1,4 +1,5 @@
 import {initializeApp} from 'firebase/app'
+import {getAnalytics} from 'firebase/analytics'
 import './app.css'
 import App from './App.svelte'
 
@@ -13,6 +14,7 @@ const firebaseConfig = {
 }
 
 const firebase = initializeApp(firebaseConfig)
+const analytics = getAnalytics(firebase)
 
 const app = new App({
   target: document.getElementById('app'),
