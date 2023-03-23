@@ -1,9 +1,9 @@
 <script lang="ts">
   import {fabric} from 'fabric'
   import {logEvent} from 'firebase/analytics'
+  import {analytics} from 'src/api/firebase/firebase'
   import {onMount} from 'svelte'
-  import {analytics} from '../../firebase'
-  import {canvas, width, hasCostume, costumeInfo, toggleCostume, type CostumeKeys} from '../../store/canvas'
+  import {canvas, width, hasCostume, costumeInfo, toggleCostume, type CostumeKeys} from 'src/store/canvas'
 
   onMount(() => {
     logEvent(analytics, '꾸미기 탭 진입')

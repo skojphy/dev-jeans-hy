@@ -1,7 +1,7 @@
 <script lang="ts">
   import {fabric} from 'fabric'
-  import {canvas, width} from '../../store/canvas'
-  import watermark from '../../assets/watermark.png'
+  import {canvas, width} from 'src/store/canvas'
+  import watermark from 'src/assets/watermark.png'
   import Modal from '../Modal/Modal.svelte'
 
   let showModal = false

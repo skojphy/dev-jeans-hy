@@ -1,8 +1,8 @@
 <script lang="ts">
   import {fabric} from 'fabric'
   import ColorPicker from 'svelte-awesome-color-picker'
-  import {background, canvas, width} from '../../store/canvas'
-  import watermark from '../../assets/watermark.png'
+  import {background, canvas, width} from 'src/store/canvas'
+  import watermark from 'src/assets/watermark.png'
   import Modal from '../Modal/Modal.svelte'
 
   let inputImage: HTMLInputElement
