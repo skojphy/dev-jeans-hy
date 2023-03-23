@@ -1,6 +1,11 @@
 import type {fabric} from 'fabric'
 import {writable} from 'svelte/store'
 
+import glassesImg from '../assets/costume/glasses.png'
+import laptopImg from '../assets/costume/laptop.png'
+import hairImg from '../assets/costume/hair.png'
+import coffeeImg from '../assets/costume/coffee.png'
+
 export const background = writable('#F9BB01')
 
 export const canvas = writable<fabric.Canvas | null>()
@@ -18,19 +23,19 @@ export type CostumeKeys = keyof typeof defaultCostume
 export const costumeInfo = {
   glasses: {
     title: '안경',
-    src: 'src/assets/costume/glasses.png',
+    src: glassesImg,
   },
   hair: {
     title: '앞머리',
-    src: 'src/assets/costume/hair.png',
+    src: hairImg,
   },
   laptop: {
     title: '노트북',
-    src: 'src/assets/costume/laptop.png',
+    src: laptopImg,
   },
   coffee: {
     title: '커피',
-    src: 'src/assets/costume/coffee.png',
+    src: coffeeImg,
   },
 }
 
