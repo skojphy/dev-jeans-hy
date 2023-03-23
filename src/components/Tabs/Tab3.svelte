@@ -73,5 +73,6 @@
 
   .save {
     margin-top: 20px;
+    max-width: none;
   }
 </style>

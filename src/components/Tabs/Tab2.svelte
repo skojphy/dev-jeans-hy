@@ -24,7 +24,7 @@
       // 캔버스의 오브젝트들을 순회하며 basketball은 가장 위로 올림
       // TODO. index를 custome 마다 관리해야함
       $canvas.getObjects().forEach((obj) => {
-        if (obj.costume === 'basketball') {
+        if (obj.costume === 'basketball' || obj.costume === 'laptop') {
           $canvas.moveTo(obj, 100)
         }
       })
