@@ -41,3 +41,16 @@ p {
 #root {
   isolation: isolate;
 }
+button,
+a {
+  color: inherit;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+}
