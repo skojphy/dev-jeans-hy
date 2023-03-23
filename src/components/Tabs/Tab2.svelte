@@ -1,25 +1,16 @@
 <script lang="ts">
   import {fabric} from 'fabric'
-  import {canvas, width, hasGlasses, hasHair, hasLaptop, hasCoffee} from '../../store/canvas'
-  import glasses from '../../assets/glasses.png'
-  import hair from '../../assets/hair.png'
-  import laptop from '../../assets/laptop.png'
-  import coffee from '../../assets/coffee.png'
+  import {logEvent} from 'firebase/analytics'
+  import {onMount} from 'svelte'
+  import {analytics} from '../../firebase'
+  import {canvas, width, hasCostume, costumeInfo, toggleCostume, type CostumeKeys} from '../../store/canvas'
 
-  type Costume = 'glasses' | 'hair' | 'laptop' | 'coffee'
+  onMount(() => {
+    logEvent(analytics, '꾸미기 탭 진입')
+  })
 
-  const addCostume = (costume: Costume) => {
-    let costumeImg
-
-    if (costume === 'glasses') {
-      costumeImg = glasses
-    } else if (costume === 'hair') {
-      costumeImg = hair
-    } else if (costume === 'laptop') {
-      costumeImg = laptop
-    } else if (costume === 'coffee') {
-      costumeImg = coffee
-    }
+  const addCostume = (costume: CostumeKeys) => {
+    let costumeImg = costumeInfo[costume].src
 
     fabric.Image.fromURL(costumeImg, function (img) {
       img.scaleToWidth($width)
@@ -32,7 +23,7 @@
     })
   }
 
-  const removeCostume = (costume: Costume) => {
+  const removeCostume = (costume: CostumeKeys) => {
     const objects = $canvas.getObjects()
     const costumeObjects = objects.filter((obj) => obj.costume === costume)
     costumeObjects.forEach((obj) => $canvas.remove(obj))
@@ -40,52 +31,29 @@
 
   $: {
     const objects = $canvas.getObjects()
-    const hasObjGlasses = objects.find((obj) => obj.costume === 'glasses')
-    const hasObjHair = objects.find((obj) => obj.costume === 'hair')
-    const hasObjLaptop = objects.find((obj) => obj.costume === 'laptop')
-    const hasObjCoffee = objects.find((obj) => obj.costume === 'coffee')
 
-    if (!hasObjGlasses && $hasGlasses) addCostume('glasses')
-    else if (hasObjGlasses && !$hasGlasses) removeCostume('glasses')
-
-    if (!hasObjHair && $hasHair) addCostume('hair')
-    else if (hasObjHair && !$hasHair) removeCostume('hair')
-
-    if (!hasObjLaptop && $hasLaptop) addCostume('laptop')
-    else if (hasObjLaptop && !$hasLaptop) removeCostume('laptop')
-
-    if (!hasObjCoffee && $hasCoffee) addCostume('coffee')
-    else if (hasObjCoffee && !$hasCoffee) removeCostume('coffee')
+    for (const costume in $hasCostume) {
+      const hasObj = objects.find((obj) => obj.costume === costume)
+      if (hasObj && !$hasCostume[costume]) removeCostume(costume as CostumeKeys)
+      if (!hasObj && $hasCostume[costume]) addCostume(costume as CostumeKeys)
+    }
   }
 
-  const toggleActive = (costume: Costume) => () => {
-    if (costume === 'glasses') {
-      $hasGlasses = !$hasGlasses
-    } else if (costume === 'hair') {
-      $hasHair = !$hasHair
-    } else if (costume === 'laptop') {
-      $hasLaptop = !$hasLaptop
-    } else if (costume === 'coffee') {
-      $hasCoffee = !$hasCoffee
-    }
+  const toggleActive = (costume: string) => () => {
+    toggleCostume(costume as CostumeKeys)
   }
 </script>
 
 <div class="container">
   <h2>아이템을 추가해 꾸며주세요!</h2>
   <ul class="toolbar">
-    <li>
-      <button class={$hasGlasses ? 'active' : ''} on:click={toggleActive('glasses')}>안경</button>
-    </li>
-    <li>
-      <button class={$hasHair ? 'active' : ''} on:click={toggleActive('hair')}>앞머리</button>
-    </li>
-    <li>
-      <button class={$hasLaptop ? 'active' : ''} on:click={toggleActive('laptop')}>노트북</button>
-    </li>
-    <li>
-      <button class={$hasCoffee ? 'active' : ''} on:click={toggleActive('coffee')}>커피</button>
-    </li>
+    {#each Object.keys(costumeInfo) as costume}
+      <li>
+        <button class={$hasCostume[costume] ? 'active' : ''} on:click={toggleActive(costume)}
+          >{costumeInfo[costume].title}</button
+        >
+      </li>
+    {/each}
   </ul>
 </div>
 
