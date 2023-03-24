@@ -4,6 +4,7 @@
   import {onMount} from 'svelte'
   import Toolbar from './components/Toolbar.svelte'
   import {canvas, width} from './store/canvas'
+  import Login from './components/Login.svelte'
 
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
@@ -33,6 +34,8 @@
   <h1>~개발진스 짤 만들어 쓰기~</h1>
   <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc" />
 </main>
+
+<Login />
 
 <Toolbar />
 

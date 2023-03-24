@@ -1,5 +1,6 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
+/// <reference types="node" />
 
 interface ImportMetaEnv {
   readonly VITE_APP_FIREBASE_KEY: string
@@ -9,6 +10,9 @@ interface ImportMetaEnv {
   readonly VITE_APP_MESSAGING_SENDER_ID: string
   readonly VITE_APP_APP_ID: string
   readonly VITE_APP_MEASUREMENT_ID: string
+
+  readonly VITE_APP_API_URL: string
+  readonly VITE_APP_GOOGLE_CLIENT_ID: string
 }
 
 interface ImportMeta {
