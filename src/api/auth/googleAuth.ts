@@ -1,3 +1,6 @@
+import {postLogin} from '../service/auth'
+import {getUserInfo} from '../service/user'
+
 type InitAuthProps = {
   ref: HTMLElement
   text?: google.accounts.id.GsiButtonConfiguration['text']
@@ -6,8 +9,10 @@ type InitAuthProps = {
 export const initAuth2 = ({ref, text = 'signin_with'}: InitAuthProps) => {
   google.accounts.id.initialize({
     client_id: import.meta.env.VITE_APP_GOOGLE_CLIENT_ID,
-    callback: (res) => {
-      console.log({res})
+    callback: async (res) => {
+      console.log({idToken: res.credential})
+      const result = await postLogin({idToken: res.credential})
+      const userInfo = await getUserInfo()
     },
   })
 
