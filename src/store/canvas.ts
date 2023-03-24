@@ -38,6 +38,14 @@ const defaultCostume = {
   headphones: false,
   basketball: false,
   basketballVest: false,
+  airpot: false,
+  ballCap: false,
+  darkCircles: false,
+  hardHat: false,
+  toast: false,
+  watch: false,
+  sneakers: false,
+  cookie: false,
 }
 
 export type CostumeKeys = keyof typeof defaultCostume
@@ -120,4 +128,8 @@ export const toggleCostume = (target: keyof typeof defaultCostume) => {
     ...prev,
     [target]: !prev[target],
   }))
+}
+
+export const resetCostume = () => {
+  hasCostume.set(defaultCostume)
 }
