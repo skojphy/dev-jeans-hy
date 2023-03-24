@@ -1,5 +1,6 @@
 <script lang="ts">
-  import devJeans from './assets/dev-jeans.png'
+  // import devJeans from './assets/dev-jeans.png'
+  import {devJeans} from 'src/const/imgUrl.ts'
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
   import Toolbar from './components/Toolbar.svelte'

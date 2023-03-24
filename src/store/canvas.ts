@@ -1,24 +1,27 @@
 import type {fabric} from 'fabric'
 import {writable} from 'svelte/store'
 
-import glassesImg from 'src/assets/costume/glasses.png'
-import laptopImg from 'src/assets/costume/laptop.png'
-import hairImg from 'src/assets/costume/hair.png'
-import coffeeImg from 'src/assets/costume/coffee.png'
-import gogglesImg from 'src/assets/costume/goggles.png'
-import hairbandImg from 'src/assets/costume/hairband.png'
-import headphonesImg from 'src/assets/costume/headphones.png'
-import basketballImg from 'src/assets/costume/basketball.png'
-import basketballVestImg from 'src/assets/costume/basketballVest.png'
-import airpotImg from 'src/assets/costume/airpot.png'
-import ballCapImg from 'src/assets/costume/ballCap.png'
-import darkCirclesImg from 'src/assets/costume/darkCircles.png'
-import hardHatImg from 'src/assets/costume/hardHat.png'
-import toastImg from 'src/assets/costume/toast.png'
-import watchImg from 'src/assets/costume/watch.png'
-import sneakersImg from 'src/assets/costume/sneakers.png'
 import {getRandomInt} from 'src/lib/getRandom'
 import {backgrounds} from 'src/const/colors'
+import {
+  airpotImg,
+  ballCapImg,
+  basketballImg,
+  basketballVestImg,
+  coffeeImg,
+  cookieImg,
+  darkCirclesImg,
+  glassesImg,
+  gogglesImg,
+  hairbandImg,
+  hairImg,
+  hardHatImg,
+  headphonesImg,
+  laptopImg,
+  sneakersImg,
+  toastImg,
+  watchImg,
+} from 'src/const/imgUrl'
 
 export const background = writable(backgrounds[getRandomInt(0, backgrounds.length - 1)])
 
@@ -103,6 +106,10 @@ export const costumeInfo = {
   sneakers: {
     title: '운동화',
     src: sneakersImg,
+  },
+  cookie: {
+    title: '쿠키',
+    src: cookieImg,
   },
 }
 
