@@ -10,6 +10,12 @@ import hairbandImg from 'src/assets/costume/hairband.png'
 import headphonesImg from 'src/assets/costume/headphones.png'
 import basketballImg from 'src/assets/costume/basketball.png'
 import basketballVestImg from 'src/assets/costume/basketballVest.png'
+import airpotImg from 'src/assets/costume/airpot.png'
+import ballCapImg from 'src/assets/costume/ballCap.png'
+import darkCirclesImg from 'src/assets/costume/darkCircles.png'
+import hardHatImg from 'src/assets/costume/hardHat.png'
+import toastImg from 'src/assets/costume/toast.png'
+import watchImg from 'src/assets/costume/watch.png'
 
 export const background = writable('#F9BB01')
 
@@ -66,6 +72,30 @@ export const costumeInfo = {
   basketball: {
     title: '농구 공',
     src: basketballImg,
+  },
+  airpot: {
+    title: '에어팟',
+    src: airpotImg,
+  },
+  ballCap: {
+    title: '볼캡',
+    src: ballCapImg,
+  },
+  darkCircles: {
+    title: '다크써클',
+    src: darkCirclesImg,
+  },
+  hardHat: {
+    title: '안전모',
+    src: hardHatImg,
+  },
+  toast: {
+    title: '토스트',
+    src: toastImg,
+  },
+  watch: {
+    title: '애플워치',
+    src: watchImg,
   },
 }
 
