@@ -1,6 +1,5 @@
 <script lang="ts">
-  // import devJeans from './assets/dev-jeans.png'
-  import {devJeans} from 'src/const/imgUrl.ts'
+  import devJeans from './assets/dev-jeans.png'
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
   import Toolbar from './components/Toolbar.svelte'
@@ -18,13 +17,17 @@
     $canvas.setWidth($width * $canvas.getZoom())
     $canvas.setHeight($width * $canvas.getZoom())
 
-    fabric.Image.fromURL(devJeans, function (img) {
-      img.scaleToWidth($width)
-      img.scaleToWidth($width)
-      img.selectable = false
-      $canvas.add(img)
-      $canvas.renderAll()
-    })
+    fabric.Image.fromURL(
+      devJeans,
+      function (img) {
+        img.scaleToWidth($width)
+        img.scaleToWidth($width)
+        img.selectable = false
+        $canvas.add(img)
+        $canvas.renderAll()
+      },
+      {crossOrigin: 'anonymous'},
+    )
   }
 
   onMount(initCanvas)
