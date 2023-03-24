@@ -17,8 +17,10 @@ import hardHatImg from 'src/assets/costume/hardHat.png'
 import toastImg from 'src/assets/costume/toast.png'
 import watchImg from 'src/assets/costume/watch.png'
 import sneakersImg from 'src/assets/costume/sneakers.png'
+import {getRandomInt} from 'src/lib/getRandom'
+import {backgrounds} from 'src/const/colors'
 
-export const background = writable('#F9BB01')
+export const background = writable(backgrounds[getRandomInt(0, backgrounds.length - 1)])
 
 export const canvas = writable<fabric.Canvas | null>()
 export const width = writable(600)
