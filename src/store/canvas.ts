@@ -16,6 +16,7 @@ import darkCirclesImg from 'src/assets/costume/darkCircles.png'
 import hardHatImg from 'src/assets/costume/hardHat.png'
 import toastImg from 'src/assets/costume/toast.png'
 import watchImg from 'src/assets/costume/watch.png'
+import sneakersImg from 'src/assets/costume/sneakers.png'
 
 export const background = writable('#F9BB01')
 
@@ -96,6 +97,10 @@ export const costumeInfo = {
   watch: {
     title: '애플워치',
     src: watchImg,
+  },
+  sneakers: {
+    title: '운동화',
+    src: sneakersImg,
   },
 }
 
