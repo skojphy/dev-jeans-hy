@@ -5,12 +5,14 @@
   import Decorate from './Tabs/DecorateTap.svelte'
   import SaveTap from './Tabs/SaveTap.svelte'
   import Tabs from './Tabs/Tabs.svelte'
+  import DrawingTap from './Tabs/DrawingTap.svelte'
 
   let items = [
     {label: '꾸미기', value: TabValue.Decorate, component: Decorate},
     {label: '배경', value: TabValue.Background, component: BackgroundTap},
-    {label: '사진 추가', value: TabValue.Photo, component: Photo},
-    {label: '저장하기', value: TabValue.Save, component: SaveTap},
+    {label: '사진', value: TabValue.Photo, component: Photo},
+    {label: '저장', value: TabValue.Save, component: SaveTap},
+    {label: '드로잉', value: TabValue.Drawing, component: DrawingTap},
   ]
 </script>
 
@@ -23,5 +25,6 @@
     max-width: 600px;
     width: 100%;
     margin: 20px auto;
+    font-size: 12px;
   }
 </style>

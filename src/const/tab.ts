@@ -3,4 +3,5 @@ export const TabValue = {
   Background: 2,
   Photo: 3,
   Save: 4,
+  Drawing: 5,
 }
