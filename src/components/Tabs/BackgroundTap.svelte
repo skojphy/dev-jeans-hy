@@ -24,6 +24,7 @@
     const url = URL.createObjectURL(file)
 
     fabric.Image.fromURL(url, function (img) {
+      img.set('itemType', 'background')
       $canvas.setBackgroundImage(img, $canvas.renderAll.bind($canvas), {
         scaleX: $canvas.width / img.width,
         scaleY: $canvas.height / img.height,

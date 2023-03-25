@@ -31,7 +31,7 @@
         left: imageLength * 10,
         top: imageLength * 10,
       })
-      img.set('imageType', 'item')
+      img.set('itemType', 'photo')
       img.scaleToWidth($width / 6)
       $canvas.add(img)
       $canvas.setActiveObject(img)

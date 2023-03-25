@@ -25,7 +25,7 @@
         img.scaleToWidth($width)
         img.scaleToWidth($width)
         img.selectable = false
-        img.set('imageType', 'bunny')
+        img.set('itemType', 'bunny')
         $canvas.add(img)
         $canvas.renderAll()
       },
@@ -47,12 +47,12 @@
     $canvas.discardActiveObject()
 
     if ($activeTabValue === TabValue.Background) {
-      const bunnyObjects = objects.filter((obj) => obj.imageType === 'bunny')
+      const bunnyObjects = objects.filter((obj) => obj.itemType !== 'background')
       bunnyObjects.forEach((obj) => {
         obj.opacity = 0.5
       })
     } else {
-      const bunnyObjects = objects.filter((obj) => obj.imageType === 'bunny')
+      const bunnyObjects = objects.filter((obj) => obj.itemType !== 'background')
       bunnyObjects.forEach((obj) => {
         obj.opacity = 1
       })
