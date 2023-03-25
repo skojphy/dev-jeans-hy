@@ -11,8 +11,8 @@
     {label: '꾸미기', value: TabValue.Decorate, component: Decorate},
     {label: '배경', value: TabValue.Background, component: BackgroundTap},
     {label: '사진', value: TabValue.Photo, component: Photo},
-    {label: '저장', value: TabValue.Save, component: SaveTap},
     {label: '드로잉', value: TabValue.Drawing, component: DrawingTap},
+    {label: '저장', value: TabValue.Save, component: SaveTap},
   ]
 </script>
 
