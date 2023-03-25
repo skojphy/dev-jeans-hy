@@ -3,9 +3,16 @@
   import {canvas, width} from 'src/store/canvas'
   import watermark from 'src/assets/watermark.png'
   import Modal from '../Modal/Modal.svelte'
+  import {onMount} from 'svelte'
+  import {logEvent} from 'firebase/analytics'
+  import {analytics} from 'src/api/firebase/firebase'
 
   let showModal = false
   let resultImage: string = ''
+
+  onMount(() => {
+    logEvent(analytics, '저장 탭 진입')
+  })
 
   const createImage = () => {
     fabric.Image.fromURL(watermark, function (img) {

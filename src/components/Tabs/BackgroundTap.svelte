@@ -2,8 +2,15 @@
   import {fabric} from 'fabric'
   import ColorPicker from 'svelte-awesome-color-picker'
   import {background, canvas} from 'src/store/canvas'
+  import {onMount} from 'svelte'
+  import {logEvent} from 'firebase/analytics'
+  import {analytics} from 'src/api/firebase/firebase'
 
   let inputImage: HTMLInputElement
+
+  onMount(() => {
+    logEvent(analytics, '배경 탭 진입')
+  })
 
   $: if ($canvas) {
     $canvas.setBackgroundColor($background, () => {
