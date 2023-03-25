@@ -3,7 +3,9 @@
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
   import Toolbar from './components/Toolbar.svelte'
-  import {canvas, width} from './store/canvas'
+  import {canvas, width, background} from './store/canvas'
+  import {activeTabValue} from './store/tab'
+  import {TabValue} from './const/tab'
 
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
@@ -23,6 +25,7 @@
         img.scaleToWidth($width)
         img.scaleToWidth($width)
         img.selectable = false
+        img.set('imageType', 'bunny')
         $canvas.add(img)
         $canvas.renderAll()
       },
@@ -31,6 +34,30 @@
   }
 
   onMount(initCanvas)
+
+  $: if ($canvas) {
+    $canvas.setBackgroundColor($background, () => {
+      $canvas.renderAll()
+    })
+  }
+
+  $: if ($canvas && $activeTabValue) {
+    const objects = $canvas.getObjects()
+
+    if ($activeTabValue === TabValue.Background) {
+      // imageType이 bunny인 이미지를 찾아서 opacity를 0.5로 수정
+      const bunnyObjects = objects.filter((obj) => obj.imageType === 'bunny')
+      bunnyObjects.forEach((obj) => {
+        obj.opacity = 0.5
+      })
+    } else {
+      const bunnyObjects = objects.filter((obj) => obj.imageType === 'bunny')
+      bunnyObjects.forEach((obj) => {
+        obj.opacity = 1
+      })
+    }
+    $canvas.renderAll()
+  }
 </script>
 
 <main style={`width: ${width}`}>

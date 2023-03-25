@@ -1,13 +1,16 @@
 <script>
-  import Tab1 from './Tabs/Tab1.svelte'
-  import Tab2 from './Tabs/Tab2.svelte'
-  import Tab3 from './Tabs/Tab3.svelte'
+  import {TabValue} from 'src/const/tab'
+  import BackgroundTap from './Tabs/BackgroundTap.svelte'
+  import Photo from './Tabs/Photo.svelte'
+  import Decorate from './Tabs/DecorateTap.svelte'
+  import SaveTap from './Tabs/SaveTap.svelte'
   import Tabs from './Tabs/Tabs.svelte'
 
   let items = [
-    {label: '편집 하기', value: 1, component: Tab1},
-    {label: '꾸미기', value: 2, component: Tab2},
-    {label: '저장하기', value: 3, component: Tab3},
+    {label: '배경', value: TabValue.Background, component: BackgroundTap},
+    {label: '사진 추가', value: TabValue.Photo, component: Photo},
+    {label: '꾸미기', value: TabValue.Decorate, component: Decorate},
+    {label: '저장하기', value: TabValue.Save, component: SaveTap},
   ]
 </script>
 

@@ -40,7 +40,7 @@
     costumeObjects.forEach((obj) => $canvas.remove(obj))
   }
 
-  $: {
+  $: if ($canvas) {
     const objects = $canvas.getObjects()
 
     for (const costume in $hasCostume) {
