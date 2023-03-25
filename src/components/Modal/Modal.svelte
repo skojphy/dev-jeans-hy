@@ -1,6 +1,6 @@
 <script>
   export let showModal // boolean
-  import close from 'src/assets/close.svg'
+  import close from 'src/assets/icons/close.svg'
 
   let dialog // HTMLDialogElement
 
