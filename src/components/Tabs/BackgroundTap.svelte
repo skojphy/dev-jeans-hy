@@ -1,10 +1,9 @@
 <script lang="ts">
   import {fabric} from 'fabric'
   import ColorPicker from 'svelte-awesome-color-picker'
-  import {background, canvas, width} from 'src/store/canvas'
+  import {background, canvas} from 'src/store/canvas'
 
   let inputImage: HTMLInputElement
-  let imageType: 'item' | 'background' = 'background'
 
   $: if ($canvas) {
     $canvas.setBackgroundColor($background, () => {
@@ -24,39 +23,46 @@
     removeImage()
     const url = URL.createObjectURL(file)
 
-    if (imageType === 'background') {
-      fabric.Image.fromURL(url, function (img) {
-        img.set('imageType', 'background')
-        img.scaleToWidth($width)
-        $canvas.add(img)
-        img.sendToBack()
+    fabric.Image.fromURL(url, function (img) {
+      $canvas.setBackgroundImage(img, $canvas.renderAll.bind($canvas), {
+        scaleX: $canvas.width / img.width,
+        scaleY: $canvas.height / img.height,
+        selectable: true,
       })
-    }
-    $canvas.renderAll()
+    })
   }
 
   const removeImage = () => {
-    const objects = $canvas.getObjects()
-    const costumeObjects = objects.filter((obj) => obj.imageType === 'item')
-    costumeObjects.forEach((obj) => $canvas.remove(obj))
+    // 배경 이미지 제거
+    $canvas.setBackgroundImage(null, $canvas.renderAll.bind($canvas))
   }
 </script>
 
-<div class="toolbar">
-  <div>
-    <h2>배경을 꾸며보세요!</h2>
-    <ColorPicker bind:hex={$background} isA11yClosable={false} label="선택하기" />
-    <button
-      on:click={() => {
-        inputImage.click()
-        imageType = 'background'
-      }}>이미지</button
-    >
-    <button on:click={removeImage}>제거</button>
-  </div>
+<div class="container">
+  <h2>배경을 꾸며보세요!</h2>
 
-  <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
+  <ul>
+    <li>
+      <h3>배경색</h3>
+      <ColorPicker bind:hex={$background} isA11yClosable={false} label="선택하기" />
+    </li>
+
+    <li>
+      <h3>배경이미지</h3>
+
+      <div class="buttonWrapper">
+        <button
+          on:click={() => {
+            inputImage.click()
+          }}>이미지</button
+        >
+        <button on:click={removeImage}>제거</button>
+      </div>
+    </li>
+  </ul>
 </div>
+
+<input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
 
 <style>
   h2 {
@@ -65,18 +71,33 @@
     word-break: keep-all;
   }
 
-  .toolbar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+  h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    word-break: keep-all;
   }
-  .toolbar > div {
-    width: 100%;
+
+  .container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin: 5px;
+    width: 100%;
+    margin: 20px auto;
+  }
+  ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
   button {
@@ -92,12 +113,11 @@
     font-size: 12px;
   }
 
-  .photo-buttons {
+  .buttonWrapper {
     display: flex;
+    flex-direction: raw;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-  }
-
-  .save {
-    margin-top: 20px;
   }
 </style>

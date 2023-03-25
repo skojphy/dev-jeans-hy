@@ -36,6 +36,7 @@
   onMount(initCanvas)
 
   $: if ($canvas) {
+    $canvas.setBackgroundImage(null, $canvas.renderAll.bind($canvas))
     $canvas.setBackgroundColor($background, () => {
       $canvas.renderAll()
     })
@@ -43,9 +44,9 @@
 
   $: if ($canvas && $activeTabValue) {
     const objects = $canvas.getObjects()
+    $canvas.discardActiveObject()
 
     if ($activeTabValue === TabValue.Background) {
-      // imageType이 bunny인 이미지를 찾아서 opacity를 0.5로 수정
       const bunnyObjects = objects.filter((obj) => obj.imageType === 'bunny')
       bunnyObjects.forEach((obj) => {
         obj.opacity = 0.5

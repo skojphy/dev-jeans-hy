@@ -7,9 +7,9 @@
   import Tabs from './Tabs/Tabs.svelte'
 
   let items = [
+    {label: '꾸미기', value: TabValue.Decorate, component: Decorate},
     {label: '배경', value: TabValue.Background, component: BackgroundTap},
     {label: '사진 추가', value: TabValue.Photo, component: Photo},
-    {label: '꾸미기', value: TabValue.Decorate, component: Decorate},
     {label: '저장하기', value: TabValue.Save, component: SaveTap},
   ]
 </script>
