@@ -40,6 +40,11 @@
     $canvas.setBackgroundColor($background, () => {
       $canvas.renderAll()
     })
+    const objects = $canvas.getObjects()
+    objects.forEach((obj) => {
+      obj.opacity = 1
+      if (obj.itemType) obj.set('erasable', false)
+    })
   }
 
   $: if ($canvas && $activeTabValue) {

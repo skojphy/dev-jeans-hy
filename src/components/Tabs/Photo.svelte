@@ -47,6 +47,7 @@
       })
       img.set('itemType', 'photo')
       img.scaleToWidth($width / 6)
+      img.set('erasable', true)
       $canvas.add(img)
       $canvas.setActiveObject(img)
     })

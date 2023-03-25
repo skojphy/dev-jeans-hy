@@ -1,7 +1,7 @@
 <script lang="ts">
   import {fabric} from 'fabric'
   import ColorPicker from 'svelte-awesome-color-picker'
-  import {background, canvas} from 'src/store/canvas'
+  import {background, canvas, width} from 'src/store/canvas'
   import {onMount} from 'svelte'
   import {logEvent} from 'firebase/analytics'
   import {analytics} from 'src/api/firebase/firebase'

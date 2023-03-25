@@ -1,9 +1,10 @@
 <script lang="ts">
+  import {fabric} from 'fabric'
   import {logEvent} from 'firebase/analytics'
   import {analytics} from 'src/api/firebase/firebase'
   import {onDestroy, onMount} from 'svelte'
   import {canvas} from 'src/store/canvas'
-  import {drawing, offDrawingMode, onDrawingMode} from 'src/store/drawing'
+  import {drawing, offDrawingMode, onDrawingMode, onErasingMode, resetDrawing} from 'src/store/drawing'
   import {penColors} from 'src/const/colors'
   import Selection from 'src/assets/icons/selection.svg'
   import Eraser from 'src/assets/icons/eraser.svg'
@@ -13,17 +14,24 @@
   onMount(() => {
     logEvent(analytics, '그리기 탭 진입')
     onDrawingMode()
+
+    // 활성화된 오브젝트가 생기면 로그를 남김
+    $canvas.on('selection:created', () => {
+      // 활성화된 오브젝트 가져옴
+      const activeObjects = $canvas.getActiveObjects()
+      console.log({activeObjects, eraser: activeObjects[0].eraser})
+    })
   })
 
   onDestroy(() => {
-    $canvas.isDrawingMode = false
+    resetDrawing()
     offDrawingMode()
   })
 
   $: if ($drawing) {
     $canvas.freeDrawingBrush.color = $drawing.color
     $canvas.freeDrawingBrush.width = $drawing.width
-    $canvas.isDrawingMode = $drawing.isDrawingMode
+    $canvas.isDrawingMode = $drawing.mode === 'drawing' || $drawing.mode === 'erasing'
   }
 
   // TODO. 그림 선택 후 삭제 기능 추가
@@ -33,7 +41,7 @@
   <div class="header">
     <h2>그림을 그려보세요!</h2>
     <span>펜 색상을 선택해서 그려보세요.</span>
-    <span>지우고 싶은것을 선택후 지우개를 클릭하면 지워집니다.</span>
+    <span>그림을 선택해서 이동 및 크기 조정을 할 수 있어요.</span>
   </div>
 
   <div class="sub-container">
@@ -41,34 +49,19 @@
       <div>
         <ul class="option-wrapper">
           <li>
-            <button
-              class={$drawing.isDrawingMode ? '' : 'active'}
-              on:click={() => ($drawing.isDrawingMode = false)}
-              aria-label="선택 모드"
-            >
+            <button class={$drawing.mode === null ? 'active' : ''} on:click={offDrawingMode} aria-label="선택 모드">
               <img src={Selection} aria-hidden alt="선택" width="30" /></button
             >
           </li>
           <li>
-            <button
-              aria-label="삭제"
-              on:click={() => {
-                // 활성화된 모든 객체 삭제
-                $canvas.getObjects().forEach((obj) => {
-                  // 그림과 추가된 사진만 삭제함. (버니, 배경화면은 삭제 안함)
-                  if (!obj.itemType || obj.itemType === 'photo') $canvas.remove(obj)
-                })
-                $canvas.discardActiveObject()
-              }}
-            >
-              <img src={Eraser} aria-hidden alt="삭제" width="25" />
+            <button class={$drawing.mode === 'erasing' ? 'active' : ''} aria-label="지우개" on:click={onErasingMode}>
+              <img src={Eraser} aria-hidden alt="지우개" width="25" />
             </button>
           </li>
           {#each penWidths as width, i}
-            <li class={$drawing.isDrawingMode && $drawing.width === width ? 'active round-border' : ''}>
+            <li class={$drawing.mode !== null && $drawing.width === width ? 'active round-border' : ''}>
               <button
                 on:click={() => {
-                  $drawing.isDrawingMode = true
                   $drawing.width = width
                 }}
               >
@@ -93,15 +86,10 @@
         {#each penColors as color}
           <li
             class={`pen-color-wrapper ${
-              $drawing.isDrawingMode && color === $drawing.color ? 'active round-border' : ''
+              $drawing.mode === 'drawing' && color === $drawing.color ? 'active round-border' : ''
             } `}
           >
-            <button
-              on:click={() => {
-                $drawing.isDrawingMode = true
-                $drawing.color = color
-              }}
-            >
+            <button on:click={onDrawingMode}>
               <div class="pen-color" style={`background-color:${color}`} />
             </button>
           </li>
