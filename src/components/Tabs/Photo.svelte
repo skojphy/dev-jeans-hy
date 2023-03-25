@@ -1,12 +1,26 @@
 <script lang="ts">
   import {fabric} from 'fabric'
+  import {logEvent} from 'firebase/analytics'
+  import {analytics} from 'src/api/firebase/firebase'
   import {background, canvas, width} from 'src/store/canvas'
+  import {onDestroy, onMount} from 'svelte'
 
   let inputImage: HTMLInputElement
-  let imageType: 'item' | 'background' = 'background'
   let imageLength = 0
   let activeObjects: fabric.Object[] | null = null
   let hasActiveObject = false
+
+  onMount(() => {
+    logEvent(analytics, '사진 탭 진입')
+
+    $canvas.on('selection:created', handleSelectionCreated)
+    $canvas.on('selection:cleared', handleSelectionCleared)
+  })
+
+  onDestroy(() => {
+    $canvas.off('selection:created', handleSelectionCreated)
+    $canvas.off('selection:cleared', handleSelectionCleared)
+  })
 
   $: if ($canvas) {
     $canvas.setBackgroundColor($background, () => {
@@ -53,14 +67,13 @@
     $canvas.discardActiveObject()
   }
 
-  $: if ($canvas) {
-    $canvas.on('selection:created', (e) => {
-      activeObjects = $canvas.getActiveObjects()
-      hasActiveObject = activeObjects.length > 0
-    })
-    $canvas.on('selection:cleared', (e) => {
-      hasActiveObject = false
-    })
+  const handleSelectionCreated = (e: fabric.IEvent) => {
+    activeObjects = $canvas.getActiveObjects()
+    hasActiveObject = activeObjects.length > 0
+  }
+
+  const handleSelectionCleared = (e: fabric.IEvent) => {
+    hasActiveObject = false
   }
 </script>
 
@@ -76,7 +89,6 @@
     <button
       on:click={() => {
         inputImage.click()
-        imageType = 'item'
       }}>추가</button
     >
     <button on:click={removeImage} class:hasActiveObject>제거</button>
