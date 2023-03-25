@@ -35,7 +35,6 @@
       img.scaleToWidth($width / 6)
       $canvas.add(img)
       $canvas.setActiveObject(img)
-      hasActiveObject = true
     })
 
     $canvas.renderAll()
@@ -55,9 +54,12 @@
   }
 
   $: if ($canvas) {
-    $canvas.on('mouse:move', (e) => {
+    $canvas.on('selection:created', (e) => {
       activeObjects = $canvas.getActiveObjects()
       hasActiveObject = activeObjects.length > 0
+    })
+    $canvas.on('selection:cleared', (e) => {
+      hasActiveObject = false
     })
   }
 </script>
