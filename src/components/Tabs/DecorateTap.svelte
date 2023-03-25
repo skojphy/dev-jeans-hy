@@ -3,7 +3,7 @@
   import {logEvent} from 'firebase/analytics'
   import {analytics} from 'src/api/firebase/firebase'
   import {onMount} from 'svelte'
-  import {canvas, width, hasCostume, costumeInfo, toggleCostume, type CostumeKeys} from 'src/store/canvas'
+  import {canvas, width, hasCostume, costumeInfo, toggleCostume, resetCostume, type CostumeKeys} from 'src/store/canvas'
 
   onMount(() => {
     logEvent(analytics, '꾸미기 탭 진입')
@@ -40,7 +40,7 @@
     costumeObjects.forEach((obj) => $canvas.remove(obj))
   }
 
-  $: {
+  $: if ($canvas) {
     const objects = $canvas.getObjects()
 
     for (const costume in $hasCostume) {
@@ -53,11 +53,19 @@
   const toggleActive = (costume: string) => () => {
     toggleCostume(costume as CostumeKeys)
   }
+
+  const reset = () => {
+    logEvent(analytics, '초기화 버튼 클릭')
+    resetCostume()
+  }
 </script>
 
 <div class="container">
   <h2>아이템을 추가해 꾸며주세요!</h2>
   <ul class="toolbar">
+    <li>
+      <button class="reset" on:click={reset}>초기화 하기</button>
+    </li>
     {#each Object.keys(costumeInfo) as costume}
       <li>
         <button class={$hasCostume[costume] ? 'active' : ''} on:click={toggleActive(costume)}
@@ -109,6 +117,12 @@
     cursor: pointer;
     width: 100%;
     font-size: 12px;
+  }
+
+  .reset {
+    color: #fff;
+    background-color: #ff595e;
+    border: none;
   }
 
   button.active {

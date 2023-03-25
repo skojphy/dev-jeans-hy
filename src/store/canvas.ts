@@ -1,6 +1,9 @@
 import type {fabric} from 'fabric'
 import {writable} from 'svelte/store'
 
+import {getRandomInt} from 'src/lib/getRandom'
+import {backgrounds} from 'src/const/colors'
+
 import glassesImg from 'src/assets/costume/glasses.png'
 import laptopImg from 'src/assets/costume/laptop.png'
 import hairImg from 'src/assets/costume/hair.png'
@@ -10,8 +13,16 @@ import hairbandImg from 'src/assets/costume/hairband.png'
 import headphonesImg from 'src/assets/costume/headphones.png'
 import basketballImg from 'src/assets/costume/basketball.png'
 import basketballVestImg from 'src/assets/costume/basketballVest.png'
+import airpotImg from 'src/assets/costume/airpot.png'
+import ballCapImg from 'src/assets/costume/ballCap.png'
+import darkCirclesImg from 'src/assets/costume/darkCircles.png'
+import toastImg from 'src/assets/costume/toast.png'
+import watchImg from 'src/assets/costume/watch.png'
+import sneakersImg from 'src/assets/costume/sneakers.png'
+import cookieImg from 'src/assets/costume/cookie.png'
+import hardHatImg from 'src/assets/costume/hardHat.png'
 
-export const background = writable('#F9BB01')
+export const background = writable(backgrounds[getRandomInt(0, backgrounds.length - 1)])
 
 export const canvas = writable<fabric.Canvas | null>()
 export const width = writable(600)
@@ -26,6 +37,14 @@ const defaultCostume = {
   headphones: false,
   basketball: false,
   basketballVest: false,
+  airpot: false,
+  ballCap: false,
+  darkCircles: false,
+  hardHat: false,
+  toast: false,
+  watch: false,
+  sneakers: false,
+  cookie: false,
 }
 
 export type CostumeKeys = keyof typeof defaultCostume
@@ -67,6 +86,38 @@ export const costumeInfo = {
     title: '농구 공',
     src: basketballImg,
   },
+  airpot: {
+    title: '에어팟',
+    src: airpotImg,
+  },
+  ballCap: {
+    title: '볼캡',
+    src: ballCapImg,
+  },
+  darkCircles: {
+    title: '다크써클',
+    src: darkCirclesImg,
+  },
+  hardHat: {
+    title: '안전모',
+    src: hardHatImg,
+  },
+  toast: {
+    title: '토스트',
+    src: toastImg,
+  },
+  watch: {
+    title: '애플워치',
+    src: watchImg,
+  },
+  sneakers: {
+    title: '운동화',
+    src: sneakersImg,
+  },
+  cookie: {
+    title: '쿠키',
+    src: cookieImg,
+  },
 }
 
 export const hasCostume = writable(defaultCostume)
@@ -76,4 +127,8 @@ export const toggleCostume = (target: keyof typeof defaultCostume) => {
     ...prev,
     [target]: !prev[target],
   }))
+}
+
+export const resetCostume = () => {
+  hasCostume.set(defaultCostume)
 }

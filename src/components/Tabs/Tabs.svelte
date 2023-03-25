@@ -1,19 +1,20 @@
 <script>
-  export let items = []
-  export let activeTabValue = 1
+  import {activeTabValue} from 'src/store/tab'
 
-  const handleClick = (tabValue) => () => (activeTabValue = tabValue)
+  export let items = []
+
+  const handleClick = (tabValue) => () => ($activeTabValue = tabValue)
 </script>
 
 <ul class="taps">
   {#each items as item}
-    <li class={activeTabValue === item.value ? 'active' : ''}>
+    <li class={$activeTabValue === item.value ? 'active' : ''}>
       <button type="button" on:click={handleClick(item.value)}>{item.label}</button>
     </li>
   {/each}
 </ul>
 {#each items as item}
-  {#if activeTabValue == item.value}
+  {#if $activeTabValue == item.value}
     <div class="box">
       <svelte:component this={item.component} />
     </div>

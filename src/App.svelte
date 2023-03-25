@@ -3,8 +3,9 @@
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
   import Toolbar from './components/Toolbar.svelte'
-  import {canvas, width} from './store/canvas'
-  import Login from './components/Login.svelte'
+  import {canvas, width, background} from './store/canvas'
+  import {activeTabValue} from './store/tab'
+  import {TabValue} from './const/tab'
 
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
@@ -18,24 +19,52 @@
     $canvas.setWidth($width * $canvas.getZoom())
     $canvas.setHeight($width * $canvas.getZoom())
 
-    fabric.Image.fromURL(devJeans, function (img) {
-      img.scaleToWidth($width)
-      img.scaleToWidth($width)
-      img.selectable = false
-      $canvas.add(img)
+    fabric.Image.fromURL(
+      devJeans,
+      function (img) {
+        img.scaleToWidth($width)
+        img.scaleToWidth($width)
+        img.selectable = false
+        img.set('itemType', 'bunny')
+        $canvas.add(img)
+        $canvas.renderAll()
+      },
+      {crossOrigin: 'anonymous'},
+    )
+  }
+
+  onMount(initCanvas)
+
+  $: if ($canvas) {
+    $canvas.setBackgroundImage(null, $canvas.renderAll.bind($canvas))
+    $canvas.setBackgroundColor($background, () => {
       $canvas.renderAll()
     })
   }
 
-  onMount(initCanvas)
+  $: if ($canvas && $activeTabValue) {
+    const objects = $canvas.getObjects()
+    $canvas.discardActiveObject()
+
+    if ($activeTabValue === TabValue.Background) {
+      const bunnyObjects = objects.filter((obj) => obj.itemType !== 'background')
+      bunnyObjects.forEach((obj) => {
+        obj.opacity = 0.5
+      })
+    } else {
+      const bunnyObjects = objects.filter((obj) => obj.itemType !== 'background')
+      bunnyObjects.forEach((obj) => {
+        obj.opacity = 1
+      })
+    }
+    $canvas.renderAll()
+  }
 </script>
 
 <main style={`width: ${width}`}>
   <h1>~개발진스 짤 만들어 쓰기~</h1>
   <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc" />
 </main>
-
-<Login />
 
 <Toolbar />
 
