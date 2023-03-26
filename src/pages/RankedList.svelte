@@ -49,5 +49,6 @@
 <style>
   .container {
     padding: 0 10px;
+    width: 100%;
   }
 </style>

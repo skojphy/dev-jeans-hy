@@ -8,8 +8,8 @@
     <h2>마이페이지를 이용하려면 로그인 하세요.</h2>
 
     <Login />
-    <Noti style="margin: 30px 0;" icon="❤️" text="로그인후 나만의 버니를 올려 자랑해보세요!" />
   </div>
+  <Noti style="margin: 30px 0;" icon="❤️" text="로그인후 나만의 버니를 올려 자랑해보세요!" />
 </div>
 
 <style>
@@ -22,7 +22,8 @@
     padding: 10px;
     border: 1px solid #e6e6e6;
     border-radius: 6px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
 
     display: flex;
     flex-direction: column;

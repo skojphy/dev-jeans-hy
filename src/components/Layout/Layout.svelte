@@ -42,6 +42,7 @@
     justify-content: center;
     color: rgb(56, 56, 56);
     max-width: 600px;
+    width: 100%;
     margin: 10px auto;
   }
 
