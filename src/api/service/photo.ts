@@ -3,9 +3,13 @@ import type {ApiResponseType} from 'src/types/api'
 import type {PhotoRes} from 'src/types/photo'
 
 // 사진 업로드
-export const uploadPhoto = async () => {
+export const uploadPhoto = async (body: {image: FormData; thumbnail: FormData; photo_title: string}) => {
   const result = await axios.post<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/upload`, {
     withCredentials: true,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    ...body,
   })
   return result.data.data
 }
