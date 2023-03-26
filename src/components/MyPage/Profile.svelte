@@ -17,15 +17,11 @@
     if (!file) return
 
     const formData = new FormData()
-    formData.append('photo', file, file.name)
+    formData.append('image', file, file.name)
+    formData.append('photo_title', '버니')
+    formData.append('thumbnail', file, file.name)
 
-    console.log(formData.get('photo'))
-
-    uploadPhoto({
-      photo_title: '버니',
-      image: formData,
-      thumbnail: formData,
-    }).then((res) => {
+    uploadPhoto(formData).then((res) => {
       console.log('사진 업로드!', {res})
     })
   }
