@@ -3,15 +3,15 @@
   import New from 'src/assets/icons/new.png'
   import Trends from 'src/assets/icons/trends.svg'
   import Profile from 'src/assets/icons/profile.svg'
-  import {link, location} from 'svelte-spa-router'
+  import {link, location, push} from 'svelte-spa-router'
   import A11yhidden from '../A11yhidden.svelte'
 
   // TODO. 네비게이션바 만들기
   const items = [
     {name: '버니 만들기', icon: Bunny, type: 'link', path: '/'},
-    {name: '실시간', icon: New, type: 'link', path: '/bunny-list/new'},
+    {name: '실시간', icon: New, type: 'link', path: '/bunny/new'},
     {name: '트렌드', icon: Trends, type: 'link', path: '/bunny-list/trends'},
-    {name: '나의 버니들', icon: Profile, type: 'link', path: '/my-pages'},
+    {name: '나의 버니들', icon: Profile, type: 'link', path: '/my'},
   ]
 </script>
 
@@ -72,5 +72,12 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+  }
+
+  button {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
   }
 </style>

@@ -8,7 +8,7 @@ export const routes = {
   '/': Create,
   '/my': MyPages,
   '/:id': Detail,
-  '/bunny-list': BunnyList,
+  '/bunny-list/:sort': BunnyList,
   '*': NotFound,
 }
 

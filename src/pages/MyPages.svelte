@@ -1,13 +1,25 @@
 <script lang="ts">
   import Layout from 'src/components/Layout/Layout.svelte'
+  import Login from 'src/components/Login.svelte'
+  import {userInfo} from 'src/store/user'
 
-  import devJeans from 'src/assets/dev-jeans.png'
+  $: {
+    console.log({$userInfo})
+  }
 </script>
 
 <Layout title="나의 버니들">
-  <!-- TODO. 내가 올린 버니들을 모아보기 -->
-  <!-- TODO. 사진 클릭하면 디테일 페이지로 이동 -->
-  <div>
-    <img src={devJeans} alt="버니" />
-  </div>
+  {#if !$userInfo}
+    <Login />
+  {:else}
+    <div class="profile-wrapper">
+      <img src={$userInfo.profilePictureUrl} alt={$userInfo.email} aria-hidden="true" />
+      <span>{$userInfo.lastName} {$userInfo.firstName}</span>
+    </div>
+  {/if}
 </Layout>
+
+<style>
+  .profile-wrapper {
+  }
+</style>
