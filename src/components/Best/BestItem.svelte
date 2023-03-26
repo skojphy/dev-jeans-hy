@@ -1,11 +1,11 @@
 <script>
   export let id
+  export let imageUrl
 </script>
 
 <div>
-  <a href="/detail">
-    <img src="src/assets/dev-jeans2.png" alt="토끼토끼" />
-    <p>{id}</p>
+  <a href={`/#/${id}`}>
+    <img src={imageUrl} alt="토끼토끼" />
   </a>
 </div>
 
@@ -15,6 +15,5 @@
     width: 100px;
     height: 100px;
     object-fit: cover;
-    border: 2px solid black;
   }
 </style>
