@@ -2,6 +2,7 @@
   import type {PhotoRes} from 'src/types/photo'
   import {register} from 'swiper/element/bundle'
   import BestItem from './BestItem.svelte'
+  import {getBestPhotos} from 'src/api/service/photo'
 
   register()
 
@@ -17,93 +18,14 @@
       prevSlideMessage: '이전 버니 보기',
       nextSlideMessage: '다음 버니 보기',
     },
-    // paginationDynamicBullets: true,
     centeredSlides: true,
   }
 
-  // 목데이터
-  let bestBunnies: PhotoRes[] = [
-    {
-      photoId: 1,
-      photoTitle: '버니1',
-      thumbnailImageUrl: 'src/assets/dev-jeans.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 2,
-      photoTitle: '버니2',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 3,
-      photoTitle: '버니3',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 4,
-      photoTitle: '버니4',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 5,
-      photoTitle: '버니5',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 6,
-      photoTitle: '버니6',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 7,
-      photoTitle: '버니7',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-08-01',
-      lastModifiedDate: '2021-08-01',
-      likeCount: 0,
-      visitCount: 0,
-    },
-    {
-      photoId: 8,
-      photoTitle: '버니8',
-      thumbnailImageUrl: 'src/assets/dev-jeans2.png',
-      imageUrl: 'src/assets/dev-jeans2.png',
-      createdDate: '2021-09-02',
-      lastModifiedDate: '2021-09-02',
-      likeCount: 0,
-      visitCount: 0,
-    },
-  ]
+  let bestBunnies: PhotoRes[] = []
+
+  getBestPhotos().then(({content}) => {
+    bestBunnies = content
+  })
 </script>
 
 <div class="container">
