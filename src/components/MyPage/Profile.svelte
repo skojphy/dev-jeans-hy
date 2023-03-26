@@ -64,7 +64,7 @@
   <Noti text="버니는 최대 6개까지 업로드 가능합니다." />
 </div>
 
-<Modal bind:showModal>
+<Modal bind:showModal onClose={deleteImage}>
   <h2 slot="header">나만의 버니를 업로드해주세요.</h2>
 
   <button
