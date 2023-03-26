@@ -39,8 +39,8 @@ export const toggleLikePhoto = async ({isLike, id}: {isLike: boolean; id: string
 }
 
 // 사진 리스트 가져오기 - 수정 예정
-export const getPhotos = async ({sort, page}: {sort: 'latest' | 'ranked'; page: number}) => {
-  const result = await axios.get(`${import.meta.env.VITE_APP_API_URL}/photo/all/${sort}`, {
+export const getPhotos = async ({sort, page = 0}: {sort: 'latest' | 'ranked'; page: number}) => {
+  const result = await axios.get(`${import.meta.env.VITE_APP_API_URL}/photo/all/${sort}?page=${page}`, {
     withCredentials: true,
   })
   return result.data.data

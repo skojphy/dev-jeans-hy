@@ -14,7 +14,7 @@
 
 <div class="container">
   <div class="profile-wrapper">
-    <img src={$userInfo.profilePictureUrl} alt={$userInfo.email} aria-hidden="true" />
+    <img src={$userInfo.profileImage} alt={$userInfo.email} aria-hidden="true" />
     <div class="detail">
       <span>{$userInfo.lastName} {$userInfo.firstName}</span>
       <!-- TODO. 버니 업로드 모달 띄우기 -->
