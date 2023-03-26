@@ -12,6 +12,8 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "@tsconfig/svelte": "^3.0.0",
+    "prettier": "^2.8.7",
+    "prettier-plugin-svelte": "^2.10.0",
     "svelte": "^3.55.1",
     "svelte-check": "^2.10.3",
     "tslib": "^2.5.0",
@@ -27,6 +29,7 @@
     "prettier": "^2.8.6",
     "svelte-awesome-color-picker": "^2.4.1",
     "svelte-local-storage-store": "^0.4.0",
-    "svelte-spa-router": "^3.3.0"
+    "svelte-spa-router": "^3.3.0",
+    "swiper": "^9.1.1"
   }
 }
