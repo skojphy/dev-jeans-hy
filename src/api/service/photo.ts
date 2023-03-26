@@ -52,3 +52,14 @@ export const getPhotos =
 
     return result.data
   }
+
+// ranked 버니 리스트 한 페이지 가져오기
+export const getBestPhotos = async () => {
+  const result = await axios.get<ApiResponseType<PhotoRes>>(
+    `${import.meta.env.VITE_APP_API_URL}/photo/all/ranked?page=0`,
+    {
+      withCredentials: true,
+    },
+  )
+  return result.data.data
+}
