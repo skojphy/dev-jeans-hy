@@ -1,6 +1,5 @@
 <script lang="ts">
   import Layout from 'src/components/Layout/Layout.svelte'
-  import bunnyImage from 'src/assets/dev-jeans2.png'
   import likeDefault from 'src/assets/icons/like_default.svg'
   import likeFilled from 'src/assets/icons/like_filled.svg'
   import deleteIcon from 'src/assets/icons/delete.svg'
@@ -26,7 +25,6 @@
 
   const isAuthor = true
   const isLiked = true
-  // const isLiked = false
 
   // TODO: 삭제 기능 연결
   // 작성자인지 user와 비교하기
