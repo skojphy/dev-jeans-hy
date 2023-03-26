@@ -30,9 +30,8 @@
   $: if ($query?.data?.pages) photos = pageFlater($query?.data?.pages)
 </script>
 
-<Layout title="버니 모아보기">
+<Layout {title}>
   <div class="container">
-    <h1>{title}</h1>
     <Noti {icon} style="margin: 10px 0" text={detail} />
     <Gallery {photos} />
     {#if $query.hasNextPage}
@@ -42,16 +41,6 @@
 </Layout>
 
 <style>
-  h1 {
-    font-family: 'Staatliches', cursive;
-    font-size: 30px;
-    font-weight: 800;
-    text-align: center;
-    color: #f1c164;
-    text-shadow: 1px 1px #16345a, 3px 3px #284d8e, 5px 5px #4d8cbf, 7px 7px #5fa9d9;
-    margin: 0;
-  }
-
   .container {
     padding: 10px;
   }

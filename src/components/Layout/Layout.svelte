@@ -5,11 +5,11 @@
   import Nav from './Nav.svelte'
 </script>
 
-<A11yhidden as="h1">{title}</A11yhidden>
-
 <Nav />
 
 <main style={`width: ${$width}`}>
+  <h1>{title}</h1>
+
   <slot />
 </main>
 
@@ -23,6 +23,17 @@
 </footer>
 
 <style>
+  h1 {
+    font-family: 'Staatliches', cursive;
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    color: #f1c164;
+    text-shadow: 1px 1px #16345a, 3px 3px #284d8e, 5px 5px #4d8cbf, 7px 7px #5fa9d9;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
   main,
   footer {
     display: flex;
