@@ -36,6 +36,10 @@
 
   onMount(initCanvas)
 
+  onMount(() => {
+    scrollTo(0, 0)
+  })
+
   $: isDisableCanvas = $activeTabValue !== TabValue.Photo && $activeTabValue !== TabValue.Drawing
 
   $: if (!isDisableCanvas) {
