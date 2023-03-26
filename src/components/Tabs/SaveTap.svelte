@@ -7,6 +7,8 @@
   import {logEvent} from 'firebase/analytics'
   import {analytics} from 'src/api/firebase/firebase'
 
+  // TODO. 마이 페이지에 저장하기 하면 로그인된 유무에 따라서 로그인 페이지로 이동
+
   let showModal = false
   let resultImage: string = ''
 

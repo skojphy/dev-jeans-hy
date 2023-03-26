@@ -1,11 +1,10 @@
 <script lang="ts">
   export let title = ''
   import {width} from 'src/store/canvas'
+  import Header from './Header.svelte'
 </script>
 
-<header>
-  <h1>{title}</h1>
-</header>
+<Header {title} />
 
 <main style={`width: ${$width}`}>
   <slot />
@@ -21,13 +20,6 @@
 </footer>
 
 <style>
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    font-weight: 800;
-  }
   main,
   footer {
     display: flex;
@@ -35,6 +27,8 @@
     align-items: center;
     justify-content: center;
     color: rgb(56, 56, 56);
+    max-width: 600px;
+    margin: 10px auto;
   }
 
   footer {
@@ -43,6 +37,7 @@
     font-weight: 800;
     color: rgb(98, 98, 98);
     padding: 30px;
+    padding-bottom: 100px;
   }
   a {
     color: #0098fa;

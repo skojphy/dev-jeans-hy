@@ -1,5 +1,7 @@
 <script lang="ts">
-  import Create from './pages/Create.svelte'
+  import Router from 'svelte-spa-router'
+
+  import {routes} from 'src/pages/routes'
 </script>
 
-<Create />
+<Router {routes} />
