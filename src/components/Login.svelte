@@ -10,3 +10,11 @@
 </script>
 
 <button bind:this={ref} />
+
+<style>
+  button {
+    background-color: transparent;
+    border: none;
+    padding: none;
+  }
+</style>

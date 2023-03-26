@@ -17,6 +17,6 @@ export const initAuth2 = ({ref, text = 'signin_with'}: InitAuthProps) => {
 
   google.accounts.id.renderButton(
     ref,
-    {theme: 'filled_black', size: 'medium', text, width: '200', type: 'standard'}, // customization attributes
+    {theme: 'outline', size: 'large', text, width: '200', type: 'standard'}, // customization attributes
   )
 }

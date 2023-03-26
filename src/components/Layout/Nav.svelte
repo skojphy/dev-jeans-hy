@@ -3,7 +3,7 @@
   import New from 'src/assets/icons/new.png'
   import Trends from 'src/assets/icons/trends.svg'
   import Profile from 'src/assets/icons/profile.svg'
-  import {link, location, push} from 'svelte-spa-router'
+  import {link, location} from 'svelte-spa-router'
   import A11yhidden from '../A11yhidden.svelte'
 
   // TODO. 네비게이션바 만들기
