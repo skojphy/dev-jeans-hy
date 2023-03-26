@@ -3,14 +3,31 @@
   import Modal from 'src/components/Modal/Modal.svelte'
   import Noti from '../Noti.svelte'
   import {uploadPhoto} from 'src/api/service/photo'
+  import {link} from 'svelte-spa-router'
+  import devJeans from 'src/assets/dev-jeans.png'
 
+  let inputImage: HTMLInputElement = null
+  let imageUrl = ''
+  let file: File = null
   let showModal = false
-  let inputImage: HTMLInputElement
 
-  const upload = () => {}
+  const upload = () => {
+    // TODO. 썸네일 이미지 생성해서 올리기
+    // 압축라이브러리는 sharp, imagemiin 사용
+    if (!file) return
 
-  const onClick = () => {
-    showModal = true
+    const formData = new FormData()
+    formData.append('photo', file, file.name)
+
+    console.log(formData.get('photo'))
+
+    uploadPhoto({
+      photo_title: '버니',
+      image: formData,
+      thumbnail: formData,
+    }).then((res) => {
+      console.log('사진 업로드!', {res})
+    })
   }
 
   const handleAddImage = (
@@ -20,22 +37,18 @@
   ) => {
     const files = e.currentTarget.files
     if (!files) return
-    const file = files[0]
+    file = files[0]
     if (!file) return
-    const url = URL.createObjectURL(file)
+    imageUrl = URL.createObjectURL(file)
+  }
 
-    // TODO. 썸네일 이미지 생성해서 올리기
-    // 압축라이브러리는 sharp, imagemiin 사용
-    const formData = new FormData()
-    formData.append('file', file, file.name)
+  const onClick = () => {
+    showModal = true
+  }
 
-    uploadPhoto({
-      photo_title: '버니',
-      image: formData,
-      thumbnail: formData,
-    }).then((res) => {
-      console.log('사진 업로드!', {res})
-    })
+  const deleteImage = () => {
+    imageUrl = ''
+    file = null
   }
 </script>
 
@@ -57,11 +70,16 @@
   <button
     on:click={() => {
       inputImage.click()
-    }}>버니 올리기</button
+    }}>이미지 선택</button
   >
+  <button on:click={deleteImage}>제거</button>
   <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
 
-  <button class="save" on:click={upload}>확인</button>
+  <div class="preview">
+    <img class={imageUrl ? '' : 'default'} src={imageUrl || devJeans} alt="미리보기" />
+  </div>
+
+  <button class="save" on:click={upload}>업로드</button>
 </Modal>
 
 <style>
@@ -102,5 +120,28 @@
     cursor: pointer;
     font-size: 12px;
     margin-left: 20px;
+  }
+
+  .preview {
+    background: #eee;
+    display: grid;
+    place-items: center;
+  }
+
+  .preview::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .preview > img {
+    width: 100%;
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .default {
+    opacity: 0.5;
+    filter: grayscale(100%);
   }
 </style>

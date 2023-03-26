@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   export let showModal // boolean
+  export let onClose: () => void = () => {}
   import close from 'src/assets/icons/close.svg'
 
   let dialog // HTMLDialogElement
@@ -8,7 +9,14 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<dialog bind:this={dialog} on:close={() => (showModal = false)} on:click|self={() => dialog.close()}>
+<dialog
+  bind:this={dialog}
+  on:close={() => {
+    showModal = false
+    onClose?.()
+  }}
+  on:click|self={() => dialog.close()}
+>
   <div on:click|stopPropagation>
     <slot name="header" />
     <slot />
