@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type {ApiResponseType} from 'src/types/api'
-import type {PhotoRes} from 'src/types/photo'
+import type {PhotoPages, PhotoRes, SortType} from 'src/types/photo'
 
 // 사진 업로드
 export const uploadPhoto = async (formData: FormData) => {
@@ -42,10 +42,13 @@ export const toggleLikePhoto = async ({isLike, id}: {isLike: boolean; id: string
   return result.data.data
 }
 
-// 사진 리스트 가져오기 - 수정 예정
-export const getPhotos = async ({sort, page = 0}: {sort: 'latest' | 'ranked'; page: number}) => {
-  const result = await axios.get(`${import.meta.env.VITE_APP_API_URL}/photo/all/${sort}?page=${page}`, {
-    withCredentials: true,
-  })
-  return result.data.data
-}
+// 버니 리스트 가져오기
+export const getPhotos =
+  (sort: SortType = 'latest') =>
+  async ({pageParam = 0}) => {
+    const result = await axios.get<ApiResponseType<PhotoPages>>(
+      `${import.meta.env.VITE_APP_API_URL}/photo/all/${sort}?page=${pageParam}`,
+    )
+
+    return result.data
+  }
