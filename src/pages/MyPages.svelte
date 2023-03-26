@@ -1,25 +1,27 @@
 <script lang="ts">
-  import {getUserPhotos} from 'src/api/service/user'
   import devJeans from 'src/assets/dev-jeans.png'
   import Layout from 'src/components/Layout/Layout.svelte'
   import MyLogin from 'src/components/MyPage/MyLogin.svelte'
   import Profile from 'src/components/MyPage/Profile.svelte'
   import {userInfo} from 'src/store/user'
-  import type {PhotoRes} from 'src/types/photo'
+  import {idToken} from 'src/store/user'
+  import Gallery from 'src/components/Photo/Gallery.svelte'
+  import {mutateMyPhotos, myPhotos} from 'src/store/myPhotos'
   import {onMount} from 'svelte'
-  import {link} from 'svelte-spa-router'
-
-  let photos: PhotoRes[] = []
 
   $: {
-    console.log({$userInfo, photos})
+    console.log({$idToken, $userInfo, $myPhotos})
   }
 
-  onMount(async () => {
+  onMount(() => {
     if ($userInfo) {
-      photos = await getUserPhotos()
+      mutateMyPhotos()
     }
   })
+
+  $: if (!$myPhotos.length && $userInfo) {
+    mutateMyPhotos()
+  }
 </script>
 
 <Layout title="나의 버니들">
@@ -29,7 +31,7 @@
     <Profile />
 
     <div class="bunny-list">
-      {#if !photos.length}
+      {#if !$myPhotos.length}
         <div class="no-bunny">
           <h2>나의 버니가 없어요!</h2>
           <span>나만의 버니를 업로드해보세요.</span>
@@ -37,16 +39,9 @@
           <img src={devJeans} alt="버니" class="no-bunny-img" />
         </div>
       {:else}
-        <!-- TODO. 그리드로 갤러리 보여주기 -->
-        <ul>
-          {#each photos as photo}
-            <li>
-              <a href={`/${photo.id}`} use:link>
-                <img src={photo.thumbnailImageUrl} alt={photo.photoTitle} />
-              </a>
-            </li>
-          {/each}
-        </ul>
+        <div class="gallery">
+          <Gallery photos={$myPhotos} />
+        </div>
       {/if}
     </div>
   {/if}
@@ -64,5 +59,9 @@
   .no-bunny-img {
     opacity: 0.4;
     width: 300px;
+  }
+  .gallery {
+    width: 100%;
+    padding: 0 10px;
   }
 </style>

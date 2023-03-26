@@ -1,14 +1,15 @@
 <script lang="ts">
   import type {PhotoRes} from 'src/types/photo'
+  import {link} from 'svelte-spa-router'
 
   export let photos: PhotoRes[] = []
 </script>
 
 <div class="grid">
   {#each photos as photo}
-    <div class="item">
+    <a href={`/${photo.photoId}`} use:link class="item">
       <img src={photo.thumbnailImageUrl} alt={photo.photoTitle} />
-    </div>
+    </a>
   {/each}
 </div>
 
@@ -21,7 +22,6 @@
 
   .item {
     background: #eee;
-    padding: 1rem;
     display: grid;
     place-items: center;
   }
