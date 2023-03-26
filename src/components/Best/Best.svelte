@@ -1,6 +1,6 @@
 <script>
   import {register} from 'swiper/element/bundle'
-  import GalleryItem from './GalleryItem.svelte'
+  import BestItem from './BestItem.svelte'
 
   register()
 
@@ -24,23 +24,23 @@
 <div class="container">
   <h2>Best Bunnies🐰</h2>
   <swiper-container class="mySwiper" {...swiperConfig} pagination-dynamic-bullets={true}>
-    <swiper-slide><GalleryItem id={1} /></swiper-slide>
-    <swiper-slide><GalleryItem id={2} /></swiper-slide>
-    <swiper-slide><GalleryItem id={3} /></swiper-slide>
-    <swiper-slide><GalleryItem id={4} /></swiper-slide>
-    <swiper-slide><GalleryItem id={5} /></swiper-slide>
-    <swiper-slide><GalleryItem id={6} /></swiper-slide>
-    <swiper-slide><GalleryItem id={7} /></swiper-slide>
-    <swiper-slide><GalleryItem id={8} /></swiper-slide>
-    <swiper-slide><GalleryItem id={9} /></swiper-slide>
-    <swiper-slide><GalleryItem id={10} /></swiper-slide>
-    <swiper-slide><GalleryItem id={11} /></swiper-slide>
-    <swiper-slide><GalleryItem id={12} /></swiper-slide>
-    <swiper-slide><GalleryItem id={13} /></swiper-slide>
-    <swiper-slide><GalleryItem id={14} /></swiper-slide>
-    <swiper-slide><GalleryItem id={15} /></swiper-slide>
-    <swiper-slide><GalleryItem id={16} /></swiper-slide>
-    <swiper-slide><GalleryItem id={17} /></swiper-slide>
+    <swiper-slide><BestItem id={1} /></swiper-slide>
+    <swiper-slide><BestItem id={2} /></swiper-slide>
+    <swiper-slide><BestItem id={3} /></swiper-slide>
+    <swiper-slide><BestItem id={4} /></swiper-slide>
+    <swiper-slide><BestItem id={5} /></swiper-slide>
+    <swiper-slide><BestItem id={6} /></swiper-slide>
+    <swiper-slide><BestItem id={7} /></swiper-slide>
+    <swiper-slide><BestItem id={8} /></swiper-slide>
+    <swiper-slide><BestItem id={9} /></swiper-slide>
+    <swiper-slide><BestItem id={10} /></swiper-slide>
+    <swiper-slide><BestItem id={11} /></swiper-slide>
+    <swiper-slide><BestItem id={12} /></swiper-slide>
+    <swiper-slide><BestItem id={13} /></swiper-slide>
+    <swiper-slide><BestItem id={14} /></swiper-slide>
+    <swiper-slide><BestItem id={15} /></swiper-slide>
+    <swiper-slide><BestItem id={16} /></swiper-slide>
+    <swiper-slide><BestItem id={17} /></swiper-slide>
   </swiper-container>
 </div>
 

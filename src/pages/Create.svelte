@@ -3,7 +3,7 @@
   import {fabric} from 'fabric'
   import {onMount} from 'svelte'
   import Toolbar from 'src/components/Toolbar.svelte'
-  import Gallery from 'src/components/Gallery/Gallery.svelte'
+  import Best from 'src/components/Best/Best.svelte'
   import {canvas, width, background} from 'src/store/canvas'
   import {activeTabValue} from 'src/store/tab'
   import {TabValue} from 'src/const/tab'
@@ -73,7 +73,7 @@
     <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc" />
   </div>
   <Toolbar />
-  <Gallery />
+  <Best />
 </Layout>
 
 <style>
