@@ -6,5 +6,5 @@ export type PhotoRes = {
   likeCount: 0
   visitCount: 0
   photoTitle: string
-  id: number
+  photoId: number
 }

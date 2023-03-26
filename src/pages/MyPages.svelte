@@ -12,7 +12,7 @@
   let photos: PhotoRes[] = []
 
   $: {
-    console.log({$userInfo})
+    console.log({$userInfo, photos})
   }
 
   onMount(async () => {
@@ -42,7 +42,7 @@
           {#each photos as photo}
             <li>
               <a href={`/${photo.id}`} use:link>
-                <img src={photo.imageUrl} alt={photo.photoTitle} />
+                <img src={photo.thumbnailImageUrl} alt={photo.photoTitle} />
               </a>
             </li>
           {/each}

@@ -2,13 +2,40 @@
   import {userInfo} from 'src/store/user'
   import Modal from 'src/components/Modal/Modal.svelte'
   import Noti from '../Noti.svelte'
+  import {uploadPhoto} from 'src/api/service/photo'
 
   let showModal = false
+  let inputImage: HTMLInputElement
 
   const upload = () => {}
 
   const onClick = () => {
     showModal = true
+  }
+
+  const handleAddImage = (
+    e: Event & {
+      currentTarget: EventTarget & HTMLInputElement
+    },
+  ) => {
+    const files = e.currentTarget.files
+    if (!files) return
+    const file = files[0]
+    if (!file) return
+    const url = URL.createObjectURL(file)
+
+    // TODO. 썸네일 이미지 생성해서 올리기
+    // 압축라이브러리는 sharp, imagemiin 사용
+    const formData = new FormData()
+    formData.append('file', file, file.name)
+
+    uploadPhoto({
+      photo_title: '버니',
+      image: formData,
+      thumbnail: formData,
+    }).then((res) => {
+      console.log('사진 업로드!', {res})
+    })
   }
 </script>
 
@@ -26,7 +53,15 @@
 
 <Modal bind:showModal>
   <h2 slot="header">나만의 버니를 업로드해주세요.</h2>
-  <button class="save" on:click={upload}>업로드</button>
+
+  <button
+    on:click={() => {
+      inputImage.click()
+    }}>버니 올리기</button
+  >
+  <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
+
+  <button class="save" on:click={upload}>확인</button>
 </Modal>
 
 <style>
