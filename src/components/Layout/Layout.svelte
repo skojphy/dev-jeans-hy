@@ -1,10 +1,13 @@
 <script lang="ts">
   export let title = ''
   import {width} from 'src/store/canvas'
-  import Header from './Header.svelte'
+  import A11yhidden from '../A11yhidden.svelte'
+  import Nav from './Nav.svelte'
 </script>
 
-<Header {title} />
+<A11yhidden as="h1">{title}</A11yhidden>
+
+<Nav />
 
 <main style={`width: ${$width}`}>
   <slot />

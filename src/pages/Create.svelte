@@ -12,7 +12,6 @@
     if (window.innerWidth < 600) return window.innerWidth
     return 600
   }
-
   const initCanvas = () => {
     $canvas = new fabric.Canvas('canvas')
     $width = getWidth()
