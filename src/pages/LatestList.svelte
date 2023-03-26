@@ -32,7 +32,7 @@
 
 <Layout {title}>
   <div class="container">
-    <Noti {icon} style="margin: 10px 0" text={detail} />
+    <Noti {icon} style="margin-bottom: 10px" text={detail} />
     <Gallery {photos} />
     {#if $query.hasNextPage}
       <div bind:this={infiniteRef}>loading ...</div>
@@ -42,6 +42,6 @@
 
 <style>
   .container {
-    padding: 10px;
+    padding: 0 10px;
   }
 </style>
