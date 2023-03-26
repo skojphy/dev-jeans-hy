@@ -7,7 +7,7 @@ import BunnyList from 'src/pages/BunnyList.svelte'
 export const routes = {
   '/': Create,
   '/my': MyPages,
-  '/:id/detail': Detail,
+  '/:id': Detail,
   '/bunny-list': BunnyList,
   '*': NotFound,
 }
