@@ -7,12 +7,17 @@
   import {pageFlater} from 'src/lib/pageFlatten'
   import type {PhotoRes} from 'src/types/photo'
   import {infiniteScroll} from 'src/lib/infiniteScroll'
+  import {onMount} from 'svelte'
 
   let title = '새로운 버니들!'
   let detail = '최근에 올라온 버니들을 확인해보세요!'
   let icon = '💘'
   let photos: PhotoRes[] = []
   let infiniteRef: HTMLDivElement
+
+  onMount(() => {
+    scrollTo(0, 0)
+  })
 
   const query = createInfiniteQuery({
     queryKey: ['bunny-list', 'latest'],
@@ -32,7 +37,7 @@
 
 <Layout {title}>
   <div class="container">
-    <Noti {icon} style="margin: 10px 0" text={detail} />
+    <Noti {icon} style="margin-bottom: 10px" text={detail} />
     <Gallery {photos} />
     {#if $query.hasNextPage}
       <div bind:this={infiniteRef}>loading ...</div>
@@ -42,6 +47,6 @@
 
 <style>
   .container {
-    padding: 10px;
+    padding: 0 10px;
   }
 </style>

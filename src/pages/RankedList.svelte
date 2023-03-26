@@ -7,12 +7,17 @@
   import {getPhotos} from 'src/api/service/photo'
   import {pageFlater} from 'src/lib/pageFlatten'
   import {infiniteScroll} from 'src/lib/infiniteScroll'
+  import {onMount} from 'svelte'
 
   let title = '최고의 버니들!'
   let detail = '좋아요가 많은 버니들을 확인해보세요!'
   let icon = '🔥'
   let photos: PhotoRes[] = []
   let infiniteRef: HTMLDivElement
+
+  onMount(() => {
+    scrollTo(0, 0)
+  })
 
   const query = createInfiniteQuery({
     queryKey: ['bunny-list', 'ranked'],
@@ -33,7 +38,7 @@
 
 <Layout {title}>
   <div class="container">
-    <Noti {icon} style="margin: 10px 0" text={detail} />
+    <Noti {icon} style="margin-bottom: 10px" text={detail} />
     <Gallery {photos} />
     {#if $query.hasNextPage && !$query.isFetchingNextPage}
       <div bind:this={infiniteRef}>loading ...</div>
@@ -43,6 +48,6 @@
 
 <style>
   .container {
-    padding: 10px;
+    padding: 0 10px;
   }
 </style>

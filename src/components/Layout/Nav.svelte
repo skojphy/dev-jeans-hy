@@ -45,8 +45,7 @@
     font-weight: 800;
     width: 100%;
     max-width: 600px;
-
-    z-index: 10;
+    z-index: 9999;
   }
 
   .list {

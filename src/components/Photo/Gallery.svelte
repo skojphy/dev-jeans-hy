@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {PhotoRes} from 'src/types/photo'
   import {link} from 'svelte-spa-router'
+  import Like from 'src/assets/icons/like.svg'
 
   export let photos: PhotoRes[] = []
 </script>
@@ -8,7 +9,11 @@
 <div class="grid">
   {#each photos as photo}
     <a href={`/${photo.photoId}`} use:link class="item">
-      <img src={photo.thumbnailImageUrl} alt={photo.photoTitle} />
+      <img class="photo" src={photo.thumbnailImageUrl} alt={photo.photoTitle} />
+      <div class="like">
+        <span class="like-count">{photo.likeCount}</span>
+        <img width="15" src={Like} alt={`좋아요 ${photo.likeCount}개`} />
+      </div>
     </a>
   {/each}
 </div>
@@ -24,6 +29,7 @@
     background: #eee;
     display: grid;
     place-items: center;
+    position: relative;
   }
 
   .item::before {
@@ -33,8 +39,24 @@
     grid-area: 1 / 1 / 2 / 2;
   }
 
-  img {
+  .photo {
     width: 100%;
     grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .like {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.638);
+    padding: 5px 15px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .like > span {
+    margin-right: 5px;
+    color: rgb(55, 55, 55);
   }
 </style>
