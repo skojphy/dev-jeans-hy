@@ -19,7 +19,7 @@
     }
   })
 
-  $: if (!$myPhotos.length && $userInfo) {
+  $: if (!$myPhotos?.length && $userInfo) {
     mutateMyPhotos()
   }
 </script>
