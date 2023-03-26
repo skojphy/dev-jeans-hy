@@ -1,27 +1,20 @@
 <script lang="ts">
+  import {createQuery} from '@tanstack/svelte-query'
   import devJeans from 'src/assets/dev-jeans.png'
   import Layout from 'src/components/Layout/Layout.svelte'
   import MyLogin from 'src/components/MyPage/MyLogin.svelte'
   import Profile from 'src/components/MyPage/Profile.svelte'
   import {userInfo} from 'src/store/user'
-  import {idToken} from 'src/store/user'
   import Gallery from 'src/components/Photo/Gallery.svelte'
-  import {mutateMyPhotos, myPhotos} from 'src/store/myPhotos'
-  import {onMount} from 'svelte'
+  import {getUserPhotos} from 'src/api/service/user'
 
-  $: {
-    console.log({$idToken, $userInfo, $myPhotos})
-  }
-
-  onMount(() => {
-    if ($userInfo) {
-      mutateMyPhotos()
-    }
+  // TODO. 로그인 되어있는지 여부에 따라 활성여부 결정
+  const query = createQuery({
+    queryKey: ['myPhotos'],
+    queryFn: getUserPhotos,
   })
 
-  $: if (!$myPhotos?.length && $userInfo) {
-    mutateMyPhotos()
-  }
+  $: console.log({loading: $query?.isLoading})
 </script>
 
 <Layout title="나의 버니들">
@@ -31,7 +24,7 @@
     <Profile />
 
     <div class="bunny-list">
-      {#if !$myPhotos.length}
+      {#if !$query?.data?.length}
         <div class="no-bunny">
           <h2>나의 버니가 없어요!</h2>
 
@@ -42,7 +35,7 @@
         </div>
       {:else}
         <div class="gallery">
-          <Gallery photos={$myPhotos} />
+          <Gallery photos={$query?.data} />
         </div>
       {/if}
     </div>
