@@ -6,6 +6,7 @@
   export let photos: PhotoRes[] = []
 </script>
 
+<!-- TODO. 갤러리 스켈레톤 UI 적용 -->
 <div class="grid">
   {#each photos as photo}
     <a href={`/${photo.photoId}`} use:link class="item">
