@@ -73,6 +73,8 @@
     <canvas id="canvas" width="2400" height="2400" style="border:1px solid #ccc" />
   </div>
   <Toolbar />
+
+  <!-- TODO. 좋아요 순 버니 캐러셀 -->
 </Layout>
 
 <style>
