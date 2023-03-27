@@ -1,7 +1,7 @@
 <script lang="ts">
   import type {PhotoRes} from 'src/types/photo'
   import {link} from 'svelte-spa-router'
-  import Like from 'src/assets/icons/like.svg'
+  import Like from 'src/assets/icons/like_filled.svg'
 
   export let photos: PhotoRes[] = []
 </script>
