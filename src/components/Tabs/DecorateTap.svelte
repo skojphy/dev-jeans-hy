@@ -18,6 +18,7 @@
       img.scaleToWidth($width)
       img.selectable = false
 
+      img.set('itemType', 'costume')
       img.set('costume', costume)
       $canvas.add(img)
 

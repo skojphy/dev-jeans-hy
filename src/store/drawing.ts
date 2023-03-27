@@ -15,7 +15,7 @@ export const setDrawingWidth = (width: number) => drawing.update((d) => ({...d, 
 export const resetDrawing = () => drawing.set(defaultDrawing)
 export const onDrawingMode = () => {
   const canvas = get(canvasState)
-  canvas.isDrawingMode = true
+  drawing.set({...get(drawing), isDrawingMode: true})
   canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)
   canvas.freeDrawingBrush.color = get(drawing).color
   canvas.freeDrawingBrush.width = get(drawing).width
