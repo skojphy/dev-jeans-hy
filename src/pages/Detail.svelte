@@ -26,7 +26,7 @@
     enabled: !!$params?.id,
   })
 
-  $: isAuthor = $photoQuery?.data?.userDto.email === $userInfo?.email
+  $: isAuthor = $photoQuery?.data?.userDto.email ? $photoQuery?.data?.userDto.email === $userInfo?.email : false
   $: isLiked = $likeQuery?.data
   $: likeCount = $photoQuery?.data?.likeCount || 0
 
@@ -67,8 +67,8 @@
 <Layout title="사진 보기">
   <div class="container">
     <div class="titleArea">
-      <h2 class="title">{$photoQuery?.data?.photoTitle}</h2>
-      <p class="creator">{`@${creator}`}</p>
+      <h2 class="title">{$photoQuery?.data?.photoTitle || '나만의 버니'}</h2>
+      <p class="creator">{creator ? `@${creator}` : ''}</p>
 
       {#if isAuthor}
         <button class="delete" type="button" on:click={handleDeletePhoto}>삭제</button>
