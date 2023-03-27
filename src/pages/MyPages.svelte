@@ -7,20 +7,19 @@
   import {userInfo} from 'src/store/user'
   import Gallery from 'src/components/Photo/Gallery.svelte'
   import {getUserPhotos} from 'src/api/service/user'
+  import {logout} from 'src/api/service/auth'
 
-  // TODO. 로그인 되어있는지 여부에 따라 활성여부 결정
-  const query = createQuery({
+  $: query = createQuery({
     queryKey: ['myPhotos'],
     queryFn: getUserPhotos,
+    enabled: !!$userInfo,
   })
 
   $: console.log({loading: $query?.isLoading})
 </script>
 
 <Layout title="나의 버니들">
-  {#if !$userInfo}
-    <MyLogin />
-  {:else}
+  {#if !!$userInfo}
     <Profile />
 
     <div class="bunny-list">
@@ -36,9 +35,13 @@
       {:else}
         <div class="gallery">
           <Gallery photos={$query?.data} />
+
+          <button type="button" on:click={logout} class="logout">로그아웃</button>
         </div>
       {/if}
     </div>
+  {:else}
+    <MyLogin />
   {/if}
 </Layout>
 
@@ -58,5 +61,15 @@
   .gallery {
     width: 100%;
     padding: 0 10px;
+  }
+
+  .logout {
+    background-color: transparent;
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 30px;
+    color: rgb(104, 104, 104);
   }
 </style>
