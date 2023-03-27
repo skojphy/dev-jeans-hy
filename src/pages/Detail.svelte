@@ -3,6 +3,7 @@
   import likeDefault from 'src/assets/icons/like_default.svg'
   import likeFilled from 'src/assets/icons/like_filled.svg'
   import deleteIcon from 'src/assets/icons/delete.svg'
+  import A11yhidden from 'src/components/A11yhidden.svelte'
 
   // export let params = {
   //   id: 0,
@@ -38,9 +39,7 @@
       <p class="creator">{creator}</p>
 
       {#if isAuthor}
-        <button class="delete">
-          <img src={deleteIcon} alt="버니 삭제" />
-        </button>
+        <button class="delete"> 삭제 </button>
       {/if}
     </div>
 
@@ -53,19 +52,23 @@
         </button>
         <p class="likes">{likeCount}</p>
       </div>
-      <p />
       <p class="created">{createdDate}</p>
     </div>
   </div>
 </Layout>
 
 <style>
+  .container {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  }
   .titleArea {
     padding: 10px;
     text-align: left;
-    background-color: #edf0f3;
     color: #495057;
     border-radius: 10px 10px 0 0;
+    position: relative;
   }
   .title,
   .creator {
@@ -73,7 +76,6 @@
   }
   .description {
     padding: 10px;
-    background-color: #edf0f3;
     color: #495057;
     /* border-radius: 0 0 10px 10px; */
     display: flex;
@@ -88,6 +90,15 @@
     border: none;
     padding: 0;
     cursor: pointer;
+    background-color: transparent;
+  }
+  .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 20px;
+    height: 100%;
+    color: #ff595e;
   }
   .likes {
     font-size: 20px;
