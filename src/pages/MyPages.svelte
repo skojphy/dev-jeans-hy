@@ -1,37 +1,29 @@
 <script lang="ts">
+  import {createQuery} from '@tanstack/svelte-query'
   import devJeans from 'src/assets/dev-jeans.png'
   import Layout from 'src/components/Layout/Layout.svelte'
   import MyLogin from 'src/components/MyPage/MyLogin.svelte'
   import Profile from 'src/components/MyPage/Profile.svelte'
   import {userInfo} from 'src/store/user'
-  import {idToken} from 'src/store/user'
   import Gallery from 'src/components/Photo/Gallery.svelte'
-  import {mutateMyPhotos, myPhotos} from 'src/store/myPhotos'
-  import {onMount} from 'svelte'
+  import {getUserPhotos} from 'src/api/service/user'
+  import {logout} from 'src/api/service/auth'
 
-  $: {
-    console.log({$idToken, $userInfo, $myPhotos})
-  }
-
-  onMount(() => {
-    if ($userInfo) {
-      mutateMyPhotos()
-    }
+  $: query = createQuery({
+    queryKey: ['myPhotos'],
+    queryFn: getUserPhotos,
+    enabled: !!$userInfo,
   })
 
-  $: if (!$myPhotos?.length && $userInfo) {
-    mutateMyPhotos()
-  }
+  $: console.log({loading: $query?.isLoading})
 </script>
 
 <Layout title="나의 버니들">
-  {#if !$userInfo}
-    <MyLogin />
-  {:else}
+  {#if !!$userInfo}
     <Profile />
 
     <div class="bunny-list">
-      {#if !$myPhotos.length}
+      {#if !$query?.data?.length}
         <div class="no-bunny">
           <h2>나의 버니가 없어요!</h2>
 
@@ -42,10 +34,14 @@
         </div>
       {:else}
         <div class="gallery">
-          <Gallery photos={$myPhotos} />
+          <Gallery photos={$query?.data} />
+
+          <button type="button" on:click={logout} class="logout">로그아웃</button>
         </div>
       {/if}
     </div>
+  {:else}
+    <MyLogin />
   {/if}
 </Layout>
 
@@ -65,5 +61,15 @@
   .gallery {
     width: 100%;
     padding: 0 10px;
+  }
+
+  .logout {
+    background-color: transparent;
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 30px;
+    color: rgb(104, 104, 104);
   }
 </style>

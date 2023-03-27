@@ -54,3 +54,9 @@ ul {
 li {
   list-style: none;
 }
+:root {
+  --toastContainerTop: auto;
+  --toastContainerRight: auto;
+  --toastContainerBottom: 5rem;
+  --toastContainerLeft: calc(50vw - 8rem);
+}

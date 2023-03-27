@@ -8,6 +8,7 @@
   import type {PhotoRes} from 'src/types/photo'
   import {infiniteScroll} from 'src/lib/infiniteScroll'
   import {onMount} from 'svelte'
+  import {SyncLoader} from 'svelte-loading-spinners'
 
   let title = '새로운 버니들!'
   let detail = '최근에 올라온 버니들을 확인해보세요!'
@@ -40,7 +41,9 @@
     <Noti {icon} style="margin-bottom: 10px" text={detail} />
     <Gallery {photos} />
     {#if $query.hasNextPage}
-      <div bind:this={infiniteRef}>loading ...</div>
+      <div class="loading" bind:this={infiniteRef}>
+        <SyncLoader size="40" color="#ff595e" unit="px" duration="1s" />
+      </div>
     {/if}
   </div>
 </Layout>
@@ -48,5 +51,13 @@
 <style>
   .container {
     padding: 0 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .loading {
+    margin-top: 30px;
   }
 </style>

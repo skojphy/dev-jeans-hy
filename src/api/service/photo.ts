@@ -15,7 +15,7 @@ export const uploadPhoto = async (formData: FormData) => {
 }
 
 // 사진 삭제
-export const deletePhoto = async ({id}: {id: string}) => {
+export const deletePhoto = async ({id}: {id: string | number}) => {
   const result = await axios.delete<ApiResponseType<string>>(`${import.meta.env.VITE_APP_API_URL}/photo/${id}`, {
     withCredentials: true,
   })
@@ -23,7 +23,7 @@ export const deletePhoto = async ({id}: {id: string}) => {
 }
 
 // 특정 사진 가져오기
-export const getPhoto = async ({id}: {id: string}) => {
+export const getPhoto = async ({id}: {id: string | number}) => {
   const result = await axios.get<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/${id}`, {
     withCredentials: true,
   })
@@ -31,8 +31,8 @@ export const getPhoto = async ({id}: {id: string}) => {
 }
 
 // 좋아요 토글
-export const toggleLikePhoto = async ({isLike, id}: {isLike: boolean; id: string}) => {
-  const result = isLike
+export const toggleLikePhoto = async ({isLiked, id}: {isLiked: boolean; id: string | number}) => {
+  const result = isLiked
     ? await axios.post<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/like/${id}`, {
         withCredentials: true,
       })
@@ -52,6 +52,17 @@ export const getPhotos =
 
     return result.data
   }
+
+// 좋아요 했는지 확인
+export const checkLikePhoto = async ({photoId}: {photoId: string | number}) => {
+  const result = await axios.get<ApiResponseType<boolean>>(
+    `${import.meta.env.VITE_APP_API_URL}/photo/user/like?photoId=${photoId}`,
+    {
+      withCredentials: true,
+    },
+  )
+  return result.data.data
+}
 
 // ranked 버니 리스트 한 페이지 가져오기
 export const getBestPhotos = async () => {
