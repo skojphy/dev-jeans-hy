@@ -9,6 +9,8 @@
   import devJeans from 'src/assets/dev-jeans.png'
   import formatDate from 'src/lib/formatDate'
   import {debounce} from 'lodash'
+  import {toast} from '@zerodevx/svelte-toast'
+  import {ScaleOut} from 'svelte-loading-spinners'
 
   $: photoQuery = createQuery({
     queryKey: ['photo', `${$params?.id}`],
@@ -32,11 +34,15 @@
 
   $: creator = $photoQuery?.data?.userDto.email.split('@')[0]
 
+  $: deleteLoading = false
+
   const client = useQueryClient()
 
   // TODO. 삭제 되었습니다 토스트 띄우기
   const deleteMutation = createMutation(() => deletePhoto({id: $photoQuery?.data?.photoId}), {
     onSuccess: () => {
+      toast.push('버니가 삭제되었습니다.')
+      deleteLoading = false
       client.invalidateQueries(['bunny-list', 'ranked'])
       client.invalidateQueries(['bunny-list', 'latest'])
       client.invalidateQueries(['myPhotos'])
@@ -45,6 +51,7 @@
   })
 
   const handleDeletePhoto = async () => {
+    deleteLoading = true
     $deleteMutation.mutate()
   }
 
@@ -71,7 +78,13 @@
       <p class="creator">{creator ? `@${creator}` : ''}</p>
 
       {#if isAuthor}
-        <button class="delete" type="button" on:click={handleDeletePhoto}>삭제</button>
+        <button class="delete" type="button" on:click={handleDeletePhoto}>
+          {#if deleteLoading}
+            <ScaleOut size="35" color="#ff595e" unit="px" duration="1s" />
+          {:else}
+            삭제
+          {/if}
+        </button>
       {/if}
     </div>
 
