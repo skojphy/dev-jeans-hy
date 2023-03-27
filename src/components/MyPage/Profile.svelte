@@ -3,7 +3,6 @@
   import Modal from 'src/components/Modal/Modal.svelte'
   import Noti from '../Noti.svelte'
   import {uploadPhoto} from 'src/api/service/photo'
-  import {link} from 'svelte-spa-router'
   import devJeans from 'src/assets/dev-jeans.png'
 
   let inputImage: HTMLInputElement = null
@@ -50,9 +49,9 @@
 
 <div class="container">
   <div class="profile-wrapper">
-    <img src={$userInfo.profileImage} alt={$userInfo.email} aria-hidden="true" />
+    <img src={$userInfo?.profileImage} alt={$userInfo?.email} aria-hidden="true" />
     <div class="detail">
-      <span>{$userInfo.lastName} {$userInfo.firstName}</span>
+      <span>{$userInfo?.lastName} {$userInfo?.firstName}</span>
       <!-- TODO. 버니 업로드 모달 띄우기 -->
       <button type="button" on:click={onClick}>나의 버니 업로드하기</button>
     </div>
