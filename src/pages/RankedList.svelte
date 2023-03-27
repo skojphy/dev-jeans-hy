@@ -8,6 +8,7 @@
   import {pageFlater} from 'src/lib/pageFlatten'
   import {infiniteScroll} from 'src/lib/infiniteScroll'
   import {onMount} from 'svelte'
+  import {SyncLoader} from 'svelte-loading-spinners'
 
   let title = '최고의 버니들!'
   let detail = '좋아요가 많은 버니들을 확인해보세요!'
@@ -40,8 +41,10 @@
   <div class="container">
     <Noti {icon} style="margin-bottom: 10px" text={detail} />
     <Gallery {photos} />
-    {#if $query.hasNextPage && !$query.isFetchingNextPage}
-      <div bind:this={infiniteRef}>loading ...</div>
+    {#if $query.hasNextPage}
+      <div class="loading" bind:this={infiniteRef}>
+        <SyncLoader size="40" color="#ff595e" unit="px" duration="1s" />
+      </div>
     {/if}
   </div>
 </Layout>
@@ -50,5 +53,12 @@
   .container {
     padding: 0 10px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .loading {
+    margin-top: 30px;
   }
 </style>
