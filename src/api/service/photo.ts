@@ -23,7 +23,7 @@ export const deletePhoto = async ({id}: {id: string}) => {
 }
 
 // 특정 사진 가져오기
-export const getPhotoById = async ({id}: {id: string}) => {
+export const getPhoto = async ({id}: {id: string}) => {
   const result = await axios.get<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/${id}`, {
     withCredentials: true,
   })
