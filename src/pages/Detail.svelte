@@ -83,7 +83,7 @@
 
     <div class="description">
       <div class="like">
-        <button class="likeButton" on:click={debounce(handleToggleLikePhoto, 500)}>
+        <button class="likeButton" on:click={debounce(handleToggleLikePhoto, 300)}>
           <img src={isLiked ? likeFilled : likeDefault} alt={`좋아요 ${isLiked ? '눌림' : '눌리지 않음'}`} />
         </button>
         <p class="likes">{likeCount}</p>
