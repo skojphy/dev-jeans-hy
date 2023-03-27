@@ -1,12 +1,15 @@
+import type {UserInfo} from './user'
+
 export type PhotoRes = {
   createdDate: string
   imageUrl: string
   thumbnailImageUrl: string
   lastModifiedDate: string
-  likeCount: 0
-  visitCount: 0
+  likeCount: number
+  visitCount: number
   photoTitle: string
   photoId: number
+  userDto: UserInfo
 }
 
 export type PhotoPages = {
