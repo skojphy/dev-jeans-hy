@@ -8,6 +8,7 @@
   import {userInfo} from 'src/store/user'
   import devJeans from 'src/assets/dev-jeans.png'
   import formatDate from 'src/lib/formatDate'
+  import {debounce} from 'lodash'
 
   $: photoQuery = createQuery({
     queryKey: ['photo', `${$params?.id}`],
@@ -27,7 +28,7 @@
 
   $: isAuthor = $photoQuery?.data?.userDto.email === $userInfo?.email
   $: isLiked = $likeQuery?.data
-  $: console.log({isLiked})
+  $: likeCount = $photoQuery?.data?.likeCount || 0
 
   $: creator = $photoQuery?.data?.userDto.email.split('@')[0]
 
@@ -50,14 +51,17 @@
   const handleToggleLikePhoto = async () => {
     try {
       isLiked = !isLiked
+      if (isLiked) likeCount += 1
+      else likeCount -= 1
+
       await toggleLikePhoto({isLiked, id: $params?.id})
       await $photoQuery.refetch()
     } catch (e) {
+      if (isLiked) likeCount -= 1
+      else likeCount += 1
       isLiked = !isLiked
     }
   }
-
-  $: console.log(formatDate($photoQuery?.data?.createdDate))
 </script>
 
 <Layout title="사진 보기">
@@ -79,10 +83,10 @@
 
     <div class="description">
       <div class="like">
-        <button class="likeButton" on:click={handleToggleLikePhoto}>
+        <button class="likeButton" on:click={debounce(handleToggleLikePhoto, 500)}>
           <img src={isLiked ? likeFilled : likeDefault} alt={`좋아요 ${isLiked ? '눌림' : '눌리지 않음'}`} />
         </button>
-        <p class="likes">{$photoQuery?.data?.likeCount}</p>
+        <p class="likes">{likeCount}</p>
       </div>
       <p class="created">{$photoQuery?.data?.createdDate ? formatDate($photoQuery?.data?.createdDate) : ''}</p>
     </div>
