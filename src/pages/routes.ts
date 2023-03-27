@@ -8,7 +8,7 @@ import RankedList from './RankedList.svelte'
 export const routes = {
   '/': Create,
   '/my': MyPages,
-  '/:id': Detail,
+  '/detail/:id': Detail,
   '/bunny-list/latest': LatestList,
   '/bunny-list/ranked': RankedList,
   '*': NotFound,

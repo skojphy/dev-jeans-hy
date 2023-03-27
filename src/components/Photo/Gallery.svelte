@@ -9,7 +9,7 @@
 <!-- TODO. 갤러리 스켈레톤 UI 적용 -->
 <div class="grid">
   {#each photos as photo}
-    <a href={`/${photo.photoId}`} use:link class="item">
+    <a href={`/detail/${photo.photoId}`} use:link class="item">
       <img class="photo" src={photo.thumbnailImageUrl} alt={photo.photoTitle} />
       <div class="like">
         <span class="like-count">{photo.likeCount}</span>

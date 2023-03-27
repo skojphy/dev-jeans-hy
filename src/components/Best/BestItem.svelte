@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
+  import {link} from 'svelte-spa-router'
   export let id
   export let imageUrl
 </script>
 
 <div>
-  <a href={`/#/${id}`}>
+  <a href={`/detail/${id}`} use:link>
     <img src={imageUrl} alt="토끼토끼" />
   </a>
 </div>
