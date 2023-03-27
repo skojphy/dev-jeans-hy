@@ -3,7 +3,7 @@
   import likeDefault from 'src/assets/icons/like_default.svg'
   import likeFilled from 'src/assets/icons/like_filled.svg'
   import {checkLikePhoto, deletePhoto, getPhoto, toggleLikePhoto} from 'src/api/service/photo'
-  import {params, pop} from 'svelte-spa-router'
+  import {params, pop, replace} from 'svelte-spa-router'
   import {useQueryClient, createQuery, createMutation} from '@tanstack/svelte-query'
   import {userInfo} from 'src/store/user'
   import devJeans from 'src/assets/dev-jeans.png'
@@ -12,6 +12,9 @@
     queryKey: ['photo', `${$params?.id}`],
     queryFn: () => getPhoto({id: $params?.id}),
     enabled: !!$params?.id,
+    onError: () => {
+      replace('/404')
+    },
   })
 
   // TODO. 좋아요 낙관적 UI 적용
