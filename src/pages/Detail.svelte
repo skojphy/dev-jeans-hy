@@ -7,6 +7,7 @@
   import {useQueryClient, createQuery, createMutation} from '@tanstack/svelte-query'
   import {userInfo} from 'src/store/user'
   import devJeans from 'src/assets/dev-jeans.png'
+  import formatDate from 'src/lib/formatDate'
 
   $: photoQuery = createQuery({
     queryKey: ['photo', `${$params?.id}`],
@@ -55,6 +56,8 @@
       isLiked = !isLiked
     }
   }
+
+  $: console.log(formatDate($photoQuery?.data?.createdDate))
 </script>
 
 <Layout title="사진 보기">
@@ -81,7 +84,7 @@
         </button>
         <p class="likes">{$photoQuery?.data?.likeCount}</p>
       </div>
-      <p class="created">{$photoQuery?.data?.createdDate}</p>
+      <p class="created">{$photoQuery?.data?.createdDate ? formatDate($photoQuery?.data?.createdDate) : ''}</p>
     </div>
   </div>
 </Layout>
