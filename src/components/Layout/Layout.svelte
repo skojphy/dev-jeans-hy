@@ -15,6 +15,10 @@
 </main>
 
 <footer style={`width: ${$width}`}>
+  <a class="donation" href="https://ice-americano.co.kr/page/dev-jeans" target="_blank">
+    <span>Buy me a carrot</span>
+    <img class="donation_icon" src="src/assets/icons/carrot.svg" alt="당근" />
+  </a>
   <span>
     Instagram: <a href="https://www.instagram.com/dev_hee/">@dev_hee</a>
   </span>
@@ -57,6 +61,7 @@
 
   footer {
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
     font-weight: 800;
     color: rgb(98, 98, 98);
@@ -66,5 +71,19 @@
   a {
     color: #0098fa;
     text-decoration: none;
+  }
+
+  .donation {
+    width: 100%;
+    border: 2px solid #ddd;
+    font-size: 20px;
+    text-align: center;
+    background-color: #f78d0f;
+    color: #fff;
+  }
+
+  .donation_icon {
+    width: 60px;
+    display: inline-block;
   }
 </style>
