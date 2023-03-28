@@ -7,6 +7,8 @@
   import {activeTabValue} from './store/tab'
   import {TabValue} from './const/tab'
 
+  $: isLocalhost = window.location.hostname === 'localhost'
+
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
     return 600
@@ -75,6 +77,14 @@
   <span>
     Blog: <a href="https://velog.io/@heelieben">@pigme</a>
   </span>
+  {#if !isLocalhost}
+    <a href="https://hits.sh/devjeans.dev-hee.com/"
+      ><img
+        alt="Hits"
+        src="https://hits.sh/devjeans.dev-hee.com.svg?view=today-total&style=for-the-badge&color=f1c164&labelColor=284d8e"
+      /></a
+    >
+  {/if}
 </footer>
 
 <style>
