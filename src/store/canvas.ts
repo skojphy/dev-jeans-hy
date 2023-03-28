@@ -23,6 +23,7 @@ import cookieImg from 'src/assets/costume/cookie.png'
 import hardHatImg from 'src/assets/costume/hardHat.png'
 
 export const background = writable(backgrounds[getRandomInt(0, backgrounds.length - 1)])
+export const backgroundImage = writable('')
 
 export const canvas = writable<fabric.Canvas | null>()
 export const savedCanvas = writable<{version: string; objects: Object[]}>()

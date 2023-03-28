@@ -13,6 +13,7 @@
     type CostumeKeys,
     removeCostume,
     addCostume,
+    backgroundImage,
   } from 'src/store/canvas'
   import {activeTabValue} from 'src/store/tab'
   import {TabValue} from 'src/const/tab'
@@ -41,6 +42,17 @@
           obj.selectable = false
         }
       })
+
+      // $canvas의 backgroundImage를 scaleX: $canvas.width / img.width, scaleY: $canvas.height / img.height 로 속성 설정
+      if ($backgroundImage) {
+        fabric.Image.fromURL($backgroundImage, function (img) {
+          img.set('itemType', 'background')
+          $canvas.setBackgroundImage(img, $canvas.renderAll.bind($canvas), {
+            scaleX: $canvas.width / img.width,
+            scaleY: $canvas.height / img.height,
+          })
+        })
+      }
 
       $canvas.renderAll()
     })

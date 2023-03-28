@@ -1,7 +1,7 @@
 <script lang="ts">
   import {fabric} from 'fabric'
   import ColorPicker from 'svelte-awesome-color-picker'
-  import {background, canvas} from 'src/store/canvas'
+  import {background, backgroundImage, canvas} from 'src/store/canvas'
   import {onMount} from 'svelte'
   import {logEvent} from 'firebase/analytics'
   import {analytics} from 'src/api/firebase/firebase'
@@ -30,12 +30,13 @@
     removeImage()
     const url = URL.createObjectURL(file)
 
+    $backgroundImage = url
+
     fabric.Image.fromURL(url, function (img) {
       img.set('itemType', 'background')
       $canvas.setBackgroundImage(img, $canvas.renderAll.bind($canvas), {
         scaleX: $canvas.width / img.width,
         scaleY: $canvas.height / img.height,
-        selectable: true,
       })
     })
   }
