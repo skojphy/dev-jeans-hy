@@ -25,6 +25,8 @@ import hardHatImg from 'src/assets/costume/hardHat.png'
 export const background = writable(backgrounds[getRandomInt(0, backgrounds.length - 1)])
 
 export const canvas = writable<fabric.Canvas | null>()
+export const savedCanvas = writable<{version: string; objects: Object[]}>()
+
 export const width = writable(600)
 
 const defaultCostume = {

@@ -1,10 +1,10 @@
 <script lang="ts">
   import devJeans from 'src/assets/dev-jeans.png'
   import {fabric} from 'fabric'
-  import {onMount} from 'svelte'
+  import {onDestroy, onMount} from 'svelte'
   import Toolbar from 'src/components/Toolbar.svelte'
   import Best from 'src/components/Best/Best.svelte'
-  import {canvas, width, background} from 'src/store/canvas'
+  import {canvas, width, background, savedCanvas, hasCostume, type CostumeKeys, costumeInfo} from 'src/store/canvas'
   import {activeTabValue} from 'src/store/tab'
   import {TabValue} from 'src/const/tab'
   import Layout from 'src/components/Layout/Layout.svelte'
@@ -21,6 +21,29 @@
     $canvas.setWidth($width * $canvas.getZoom())
     $canvas.setHeight($width * $canvas.getZoom())
 
+    if ($savedCanvas) {
+      // $savedCanvas 에서 itemType이 costume인 객체는 제거
+      const objects = $savedCanvas.objects
+      const costumeObjects = objects.filter((obj) => obj.itemType === 'costume')
+      costumeObjects.forEach((obj) => {
+        const index = objects.indexOf(obj)
+        objects.splice(index, 1)
+      })
+
+      $canvas.loadFromJSON($savedCanvas, () => {
+        // itemType이 bunny인 객체는 selectable = false
+        const objects = $canvas.getObjects()
+        objects.forEach((obj) => {
+          if (obj.itemType === 'bunny') {
+            obj.selectable = false
+          }
+        })
+
+        $canvas.renderAll()
+      })
+      return
+    }
+
     fabric.Image.fromURL(
       devJeans,
       function (img) {
@@ -34,6 +57,12 @@
       {crossOrigin: 'anonymous'},
     )
   }
+
+  onDestroy(() => {
+    // 캔버스 json으로 저장
+    const json = $canvas.toDatalessJSON(['itemType', 'costume'])
+    $savedCanvas = json
+  })
 
   onMount(initCanvas)
 
@@ -76,6 +105,48 @@
     const redirect = $querystring.split('=')[1]
     if (redirect === 'logined') {
       $activeTabValue = TabValue.Save
+    }
+  }
+
+  const addCostume = (costume: CostumeKeys) => {
+    let costumeImg = costumeInfo[costume].src
+
+    fabric.Image.fromURL(costumeImg, function (img) {
+      img.scaleToWidth($width)
+      img.scaleToWidth($width)
+      img.selectable = false
+
+      img.set('itemType', 'costume')
+      img.set('costume', costume)
+      $canvas.add(img)
+
+      // 캔버스의 오브젝트들을 순회하며 basketball은 가장 위로 올림
+      // TODO. index를 custome 마다 관리해야함
+      $canvas.getObjects().forEach((obj) => {
+        if (obj.costume === 'basketball' || obj.costume === 'laptop') {
+          $canvas.moveTo(obj, 100)
+        }
+      })
+
+      $canvas.renderAll()
+    })
+  }
+
+  const removeCostume = (costume: CostumeKeys) => {
+    const objects = $canvas.getObjects()
+    const costumeObjects = objects.filter((obj) => obj.costume === costume)
+    costumeObjects.forEach((obj) => $canvas.remove(obj))
+  }
+
+  // 아이템
+  $: if ($canvas) {
+    const objects = $canvas.getObjects()
+
+    for (const costume in $hasCostume) {
+      const hasObj = objects.find((obj) => obj.costume === costume)
+
+      if (hasObj && !$hasCostume[costume]) removeCostume(costume as CostumeKeys)
+      if (!hasObj && $hasCostume[costume]) addCostume(costume as CostumeKeys)
     }
   }
 </script>
