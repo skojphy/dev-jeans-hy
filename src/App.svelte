@@ -38,7 +38,6 @@
   onMount(initCanvas)
 
   $: if ($canvas) {
-    $canvas.setBackgroundImage(null, $canvas.renderAll.bind($canvas))
     $canvas.setBackgroundColor($background, () => {
       $canvas.renderAll()
     })
