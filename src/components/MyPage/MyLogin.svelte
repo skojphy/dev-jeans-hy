@@ -1,11 +1,13 @@
 <script lang="ts">
   import Login from '../Login.svelte'
   import Noti from '../Noti.svelte'
+
+  export let title = '마이페이지를 이용하려면 로그인 하세요.'
 </script>
 
 <div class="container">
   <div class="wrapper">
-    <h2>마이페이지를 이용하려면 로그인 하세요.</h2>
+    <h2>{title}</h2>
 
     <Login />
   </div>

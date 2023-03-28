@@ -25,7 +25,7 @@
   $: likeQuery = createQuery({
     queryKey: ['photo', `${$params?.id}`, 'like'],
     queryFn: () => checkLikePhoto({photoId: $params?.id}),
-    enabled: !!$params?.id,
+    enabled: !!$params?.id && !!$userInfo,
   })
 
   $: isAuthor = $photoQuery?.data?.userDto.email ? $photoQuery?.data?.userDto.email === $userInfo?.email : false
@@ -56,6 +56,15 @@
   }
 
   const handleToggleLikePhoto = async () => {
+    if (!$userInfo) {
+      toast.push('로그인이 필요한 서비스입니다.', {
+        theme: {
+          '--toastBackground': '#ff595eaa',
+        },
+      })
+      return
+    }
+
     try {
       isLiked = !isLiked
       if (isLiked) likeCount += 1

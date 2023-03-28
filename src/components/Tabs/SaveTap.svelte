@@ -6,9 +6,11 @@
   import {onMount} from 'svelte'
   import {logEvent} from 'firebase/analytics'
   import {analytics} from 'src/api/firebase/firebase'
+  import {userInfo} from 'src/store/user'
+  import {toast} from '@zerodevx/svelte-toast'
+  import {push} from 'svelte-spa-router'
 
   // TODO. 마이 페이지에 저장하기 하면 로그인된 유무에 따라서 로그인 페이지로 이동
-
   let showModal = false
   let resultImage: string = ''
 
@@ -16,26 +18,40 @@
     logEvent(analytics, '저장 탭 진입')
   })
 
-  const createImage = () => {
-    fabric.Image.fromURL(watermark, function (img) {
-      img.scaleToWidth($width)
-      img.scaleToWidth($width)
-      img.selectable = false
-      $canvas.add(img)
-      $canvas.renderAll()
+  const createImage =
+    (quality = 4) =>
+    () => {
+      fabric.Image.fromURL(watermark, function (img) {
+        img.scaleToWidth($width)
+        img.scaleToWidth($width)
+        img.selectable = false
+        $canvas.add(img)
+        $canvas.renderAll()
 
-      resultImage = $canvas.toDataURL({format: 'png', quality: 1, multiplier: 4})
+        resultImage = $canvas.toDataURL({format: 'png', quality: 1, multiplier: quality})
 
-      $canvas.remove(img)
-      showModal = true
-    })
-  }
+        $canvas.remove(img)
+        showModal = true
+      })
+    }
 
   const saveImage = () => {
     const link = document.createElement('a')
     link.download = 'dev-jeans.png'
     link.href = resultImage
     link.click()
+  }
+
+  const handleUpload = () => {
+    if (!$userInfo) {
+      toast.push('로그인이 필요한 서비스입니다.', {
+        theme: {
+          '--toastBackground': '#ff595eaa',
+        },
+      })
+      push('/login?redirect=decorate')
+      return
+    }
   }
 </script>
 
@@ -47,7 +63,8 @@
 
 <div class="container">
   <h2>최종 결과물이 맘에 드시나요?</h2>
-  <button on:click={createImage}>만족해요!</button>
+  <button class="upload" on:click={handleUpload}>마이페이지에 업로드할래요</button>
+  <button on:click={createImage()}>파일 이미지로 저장할래요</button>
 </div>
 
 <style>
@@ -55,6 +72,11 @@
     font-size: 20px;
     margin-bottom: 30px;
     word-break: keep-all;
+  }
+
+  .upload {
+    color: #fff;
+    background-color: #8ac926c8;
   }
 
   .container {

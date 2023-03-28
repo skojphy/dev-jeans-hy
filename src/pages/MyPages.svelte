@@ -14,8 +14,6 @@
     queryFn: getUserPhotos,
     enabled: !!$userInfo,
   })
-
-  $: console.log({loading: $query?.isLoading})
 </script>
 
 <Layout title="나의 버니들">

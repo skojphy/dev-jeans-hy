@@ -36,7 +36,7 @@ export const toggleLikePhoto = async ({isLiked, id}: {isLiked: boolean; id: stri
     ? await axios.post<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/like/${id}`, {
         withCredentials: true,
       })
-    : await axios.post<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/like/cancle/${id}`, {
+    : await axios.post<ApiResponseType<PhotoRes>>(`${import.meta.env.VITE_APP_API_URL}/photo/like/cancel/${id}`, {
         withCredentials: true,
       })
   return result.data.data

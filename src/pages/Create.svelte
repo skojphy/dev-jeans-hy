@@ -8,6 +8,7 @@
   import {activeTabValue} from 'src/store/tab'
   import {TabValue} from 'src/const/tab'
   import Layout from 'src/components/Layout/Layout.svelte'
+  import {querystring} from 'svelte-spa-router'
 
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
@@ -69,6 +70,14 @@
       })
     }
     $canvas.renderAll()
+  }
+
+  // 로그인페이지에서 리다이렉트 되었다면 저장탭으로 이동
+  $: {
+    const redirect = $querystring.split('=')[1]
+    if (redirect === 'logined') {
+      $activeTabValue = TabValue.Save
+    }
   }
 </script>
 
