@@ -1,8 +1,9 @@
 <script lang="ts">
   export let title = ''
   import {width} from 'src/store/canvas'
-  import A11yhidden from '../A11yhidden.svelte'
   import Nav from './Nav.svelte'
+
+  $: isLocalhost = window.location.hostname === 'localhost'
 </script>
 
 <Nav />
@@ -20,6 +21,14 @@
   <span>
     Blog: <a href="https://velog.io/@heelieben">@pigme</a>
   </span>
+  {#if !isLocalhost}
+    <a href="https://hits.sh/devjeans.dev-hee.com/"
+      ><img
+        alt="Hits"
+        src="https://hits.sh/devjeans.dev-hee.com.svg?view=today-total&style=for-the-badge&color=f1c164&labelColor=284d8e"
+      /></a
+    >
+  {/if}
 </footer>
 
 <style>
