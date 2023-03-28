@@ -28,7 +28,7 @@
           <h2>나의 버니가 없어요!</h2>
 
           <!-- TODO. 버니가 6개가 넘어가면 경고 토스트 팝업 노출 -->
-          <span>나만의 버니를 업로드해보세요.</span>
+          <span>나만의 버니를 업로드해 보세요.</span>
 
           <img src={devJeans} alt="버니" class="no-bunny-img" />
         </div>

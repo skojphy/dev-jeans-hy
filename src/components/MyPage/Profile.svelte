@@ -60,7 +60,7 @@
 </div>
 
 <Modal bind:showModal onClose={deleteImage}>
-  <h2 slot="header">나만의 버니를 업로드해주세요.</h2>
+  <h2 slot="header">나만의 버니를 업로드해 주세요.</h2>
 
   <button
     on:click={() => {

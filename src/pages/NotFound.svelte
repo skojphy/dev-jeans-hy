@@ -12,8 +12,8 @@
     <img src={devJeans} alt="버니" />
     <div class="link-list">
       <a href="/" use:link>버니 만들러 가기</a>
-      <a href="/bunny-list/latest" use:link>새로운 버니들 보러가기</a>
-      <a href="/bunny-list/ranked" use:link>최고의 버니들 보러가기</a>
+      <a href="/bunny-list/latest" use:link>새로운 버니들 보러 가기</a>
+      <a href="/bunny-list/ranked" use:link>최고의 버니들 보러 가기</a>
     </div>
   </div>
 </Layout>

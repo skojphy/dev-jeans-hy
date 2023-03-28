@@ -5,11 +5,11 @@
 
 <div class="container">
   <div class="wrapper">
-    <h2>마이페이지를 이용하려면 로그인 하세요.</h2>
+    <h2>마이페이지를 이용하려면 로그인하세요.</h2>
 
     <Login />
   </div>
-  <Noti style="margin: 30px 0;" icon="❤️" text="로그인후 나만의 버니를 올려 자랑해보세요!" />
+  <Noti style="margin: 30px 0;" icon="❤️" text="로그인 후 나만의 버니를 올려 자랑해 보세요!" />
 </div>
 
 <style>

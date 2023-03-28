@@ -11,7 +11,7 @@
   import {SyncLoader} from 'svelte-loading-spinners'
 
   let title = '최고의 버니들!'
-  let detail = '좋아요가 많은 버니들을 확인해보세요!'
+  let detail = '좋아요를 많이 받은 버니들을 확인해 보세요!'
   let icon = '🔥'
   let photos: PhotoRes[] = []
   let infiniteRef: HTMLDivElement
