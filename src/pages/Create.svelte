@@ -36,10 +36,9 @@
             scaleX: $canvas.width / img.width,
             scaleY: $canvas.height / img.height,
           })
-
-          $savedCanvas = null
         })
       }
+      $savedCanvas = null
 
       $canvas.renderAll()
     })
@@ -132,6 +131,7 @@
   // 아이템 추가 및 삭제
   $: if ($canvas && !$savedCanvas) {
     const objects = $canvas.getObjects()
+    console.log('추가 및 삭제?')
 
     for (const costume in $hasCostume) {
       const hasObj = objects.find((obj) => obj.costume === costume)
