@@ -107,13 +107,14 @@
       <Noti icon="❤️" text="멋진 제목을 입력하고 나의 버니를 자랑해 보세요." />
       <div class="input-wrapper">
         <input placeholder="나의 귀여운 버니 🐰" class="title" type="text" bind:value={title} />
-        <button class="save" on:click={handleUpload}
-          >{#if isUploading}
-            <ScaleOut size="35" color="#ff595e" unit="px" duration="1s" />
+
+        <button disabled={isUploading} class="save" class:isUploading on:click={handleUpload}>
+          {#if isUploading}
+            <ScaleOut size="35" color="#1982c4" unit="px" duration="1s" />
           {:else}
-            업로드
-          {/if}</button
-        >
+            <span>업로드</span>
+          {/if}
+        </button>
       </div>
     </div>
   </div>
@@ -162,12 +163,14 @@
     align-items: center;
   }
 
-  button {
+  .save {
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: #fff;
     font-weight: 700;
     cursor: pointer;
     width: 100%;
@@ -175,5 +178,9 @@
     width: 100px;
     margin-left: 10px;
     background-color: #f1f3f6;
+    max-height: 41px;
+  }
+  .isUploading {
+    background-color: #fff;
   }
 </style>
