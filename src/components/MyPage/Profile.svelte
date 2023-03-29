@@ -1,29 +1,10 @@
 <script lang="ts">
   import {userInfo} from 'src/store/user'
-  import Modal from 'src/components/Modal/Modal.svelte'
   import Noti from '../Noti.svelte'
-  import {uploadPhoto} from 'src/api/service/photo'
-  import devJeans from 'src/assets/dev-jeans.png'
+  import {push} from 'svelte-spa-router'
 
-  let inputImage: HTMLInputElement = null
   let imageUrl = ''
   let file: File = null
-  let showModal = false
-
-  const upload = () => {
-    // TODO. 썸네일 이미지 생성해서 올리기
-    // 압축라이브러리는 sharp, imagemiin 사용
-    if (!file) return
-
-    const formData = new FormData()
-    formData.append('image', file, file.name)
-    formData.append('photo_title', '버니')
-    formData.append('thumbnail', file, file.name)
-
-    uploadPhoto(formData).then((res) => {
-      console.log('사진 업로드!', {res})
-    })
-  }
 
   const handleAddImage = (
     e: Event & {
@@ -38,7 +19,7 @@
   }
 
   const onClick = () => {
-    showModal = true
+    push('/')
   }
 
   const deleteImage = () => {
@@ -58,24 +39,6 @@
   </div>
   <Noti text="버니는 최대 6개까지 업로드 가능합니다." />
 </div>
-
-<Modal bind:showModal onClose={deleteImage}>
-  <h2 slot="header">나만의 버니를 업로드해주세요.</h2>
-
-  <button
-    on:click={() => {
-      inputImage.click()
-    }}>이미지 선택</button
-  >
-  <button on:click={deleteImage}>제거</button>
-  <input bind:this={inputImage} on:change={handleAddImage} type="file" accept="image/*" style="display: none" />
-
-  <div class="preview">
-    <img class={imageUrl ? '' : 'default'} src={imageUrl || devJeans} alt="미리보기" />
-  </div>
-
-  <button class="save" on:click={upload}>업로드</button>
-</Modal>
 
 <style>
   .container {

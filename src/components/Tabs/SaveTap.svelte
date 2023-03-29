@@ -9,34 +9,35 @@
   import {userInfo} from 'src/store/user'
   import {toast} from '@zerodevx/svelte-toast'
   import {push} from 'svelte-spa-router'
-  import {uploadPhoto} from 'src/api/service/photo'
+  import {resultBunny} from 'src/store/resultBunny'
 
   // TODO. 마이 페이지에 저장하기 하면 로그인된 유무에 따라서 로그인 페이지로 이동
   let showModal = false
+  let thumbnailImage: string = ''
   let resultImage: string = ''
-  let showUploadModal = false
+  let redirectToUpload: boolean = false
 
   onMount(() => {
     logEvent(analytics, '저장 탭 진입')
   })
 
-  const createImage =
-    (quality = 4) =>
-    () => {
-      fabric.Image.fromURL(watermark, function (img) {
-        img.scaleToWidth($width)
-        img.scaleToWidth($width)
-        img.selectable = false
-        $canvas.add(img)
-        $canvas.renderAll()
+  const createImage = () => {
+    fabric.Image.fromURL(watermark, function (img) {
+      img.scaleToWidth($width)
+      img.scaleToWidth($width)
+      img.selectable = false
+      $canvas.add(img)
+      $canvas.renderAll()
 
-        resultImage = $canvas.toDataURL({format: 'png', quality: 1, multiplier: quality})
-        $canvas.remove(img)
-      })
-    }
+      thumbnailImage = $canvas.toDataURL({format: 'jpeg', quality: 0.4})
+      resultImage = $canvas.toDataURL({format: 'png', quality: 2})
+
+      $canvas.remove(img)
+    })
+  }
 
   const handleSaveImage = () => {
-    createImage()()
+    createImage()
     showModal = true
   }
 
@@ -45,30 +46,6 @@
     link.download = 'dev-jeans.png'
     link.href = resultImage
     link.click()
-  }
-
-  const uploadImage = async () => {
-    if (!resultImage) return
-
-    const response = await fetch(resultImage)
-    const blob = await response.blob()
-    const file = new File([blob], 'bunny.jpg', {type: blob.type})
-
-    const formData = new FormData()
-    formData.append('image', file, file.name)
-    formData.append('photo_title', '버니')
-    formData.append('thumbnail', file, file.name)
-
-    try {
-      const result = await uploadPhoto(formData)
-    } catch (e) {
-      if (e.response.data.message === '사진을 7개이상 추가할 수 없습니다.')
-        toast.push('버니는 6개까지만 업로드 가능합니다.', {
-          theme: {
-            '--toastBackground': '#ff595eaa',
-          },
-        })
-    }
   }
 
   const handleUpload = () => {
@@ -81,8 +58,19 @@
       push('/login?redirect=decorate')
       return
     }
-    createImage()()
-    showUploadModal = true
+    createImage()
+  }
+
+  $: if (resultImage || thumbnailImage) {
+    $resultBunny = {
+      origin: resultImage,
+      thumbnail: thumbnailImage,
+    }
+    redirectToUpload = true
+  }
+
+  $: if (redirectToUpload) {
+    push('/upload')
   }
 </script>
 
@@ -90,12 +78,6 @@
   <h2 slot="header">짜잔~ 완성된 이미지에요.</h2>
   <img src={resultImage} alt="데브진스" />
   <button class="save" on:click={saveImage}>저장하기</button>
-</Modal>
-
-<Modal bind:showModal={showUploadModal}>
-  <h2 slot="header">나의 버니를 자랑해보세요!</h2>
-  <img src={resultImage} alt="데브진스" />
-  <button class="save" on:click={uploadImage}>업로드</button>
 </Modal>
 
 <div class="container">

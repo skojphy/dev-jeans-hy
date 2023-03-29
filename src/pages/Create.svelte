@@ -19,6 +19,7 @@
   import {TabValue} from 'src/const/tab'
   import Layout from 'src/components/Layout/Layout.svelte'
   import {querystring} from 'svelte-spa-router'
+  import {resultBunny} from 'src/store/resultBunny'
 
   const getWidth = () => {
     if (window.innerWidth < 600) return window.innerWidth
@@ -64,6 +65,8 @@
 
     $canvas.setWidth($width * $canvas.getZoom())
     $canvas.setHeight($width * $canvas.getZoom())
+
+    $resultBunny = null
 
     if ($savedCanvas) {
       setSavedCanvas()

@@ -24,16 +24,12 @@
       {#if !$query?.data?.length}
         <div class="no-bunny">
           <h2>나의 버니가 없어요!</h2>
-
-          <!-- TODO. 버니가 6개가 넘어가면 경고 토스트 팝업 노출 -->
           <span>나만의 버니를 업로드해보세요.</span>
-
           <img src={devJeans} alt="버니" class="no-bunny-img" />
         </div>
       {:else}
         <div class="gallery">
           <Gallery photos={$query?.data} />
-
           <button type="button" on:click={logout} class="logout">로그아웃</button>
         </div>
       {/if}
