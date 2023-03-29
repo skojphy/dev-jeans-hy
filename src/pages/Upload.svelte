@@ -80,7 +80,7 @@
           },
         })
       else
-        toast.push('문제가 발생했습니다.\n 잠시후에 다시 시도해 주세요.', {
+        toast.push('문제가 발생했습니다.\n 잠시 후에 다시 시도해 주세요.', {
           theme: {
             '--toastBackground': '#ff595eaa',
           },
@@ -104,7 +104,7 @@
     {/if}
     <img class={$resultBunny?.origin ? '' : 'default'} src={$resultBunny?.origin || devJeans} alt="데브진스" />
     <div class="toolbar">
-      <Noti icon="❤️" text="멋진 제목을 입력해서 나의 버니를 자랑해 보세요." />
+      <Noti icon="❤️" text="멋진 제목을 입력하고 나의 버니를 자랑해 보세요." />
       <div class="input-wrapper">
         <input placeholder="나의 귀여운 버니 🐰" class="title" type="text" bind:value={title} />
         <button class="save" on:click={handleUpload}
