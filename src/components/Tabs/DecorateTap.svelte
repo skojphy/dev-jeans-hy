@@ -23,7 +23,7 @@
       $canvas.add(img)
 
       // 캔버스의 오브젝트들을 순회하며 basketball은 가장 위로 올림
-      // TODO. index를 custome 마다 관리해야함
+      // TODO. index를 costume 마다 관리해야 함
       $canvas.getObjects().forEach((obj) => {
         if (obj.costume === 'basketball' || obj.costume === 'laptop') {
           $canvas.moveTo(obj, 100)
@@ -62,10 +62,10 @@
 </script>
 
 <div class="container">
-  <h2>아이템을 추가해 꾸며주세요!</h2>
+  <h2>아이템을 추가해 꾸며 주세요!</h2>
   <ul class="toolbar">
     <li>
-      <button class="reset" on:click={reset}>초기화 하기</button>
+      <button class="reset" on:click={reset}>초기화하기</button>
     </li>
     {#each Object.keys(costumeInfo) as costume}
       <li>
