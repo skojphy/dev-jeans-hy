@@ -36,6 +36,7 @@
             scaleX: $canvas.width / img.width,
             scaleY: $canvas.height / img.height,
           })
+          $savedCanvas = null
         })
       }
       $savedCanvas = null
