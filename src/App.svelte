@@ -4,7 +4,7 @@
   import {SvelteToast} from '@zerodevx/svelte-toast'
   import {routes} from 'src/pages/routes'
   import {onMount} from 'svelte'
-  import {initUser} from './lib/initUser'
+  import {initUser} from 'src/lib/initUser'
 
   const queryClient = new QueryClient()
   onMount(initUser)
