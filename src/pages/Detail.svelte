@@ -46,7 +46,7 @@
       client.invalidateQueries(['bunny-list', 'ranked'])
       client.invalidateQueries(['bunny-list', 'latest'])
       client.invalidateQueries(['myPhotos'])
-      pop()
+      replace('/bunny-list/ranked')
     },
   })
 
