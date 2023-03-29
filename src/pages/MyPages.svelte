@@ -16,7 +16,7 @@
   })
 </script>
 
-<Layout title="나의 버니들">
+<Layout title="나의 버니들!">
   {#if !!$userInfo}
     <Profile />
 
