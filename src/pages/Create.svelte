@@ -27,23 +27,7 @@
   }
 
   const setSavedCanvas = () => {
-    // $savedCanvas 에서 itemType이 costume인 객체는 제거
-    const objects = $savedCanvas.objects
-    const costumeObjects = objects.filter((obj) => obj.itemType === 'costume')
-    costumeObjects.forEach((obj) => {
-      const index = objects.indexOf(obj)
-      objects.splice(index, 1)
-    })
-
     $canvas.loadFromJSON($savedCanvas, () => {
-      // itemType이 bunny인 객체는 selectable = false
-      const objects = $canvas.getObjects()
-      objects.forEach((obj) => {
-        if (obj.itemType === 'bunny') {
-          obj.selectable = false
-        }
-      })
-
       // $canvas의 backgroundImage를 scaleX: $canvas.width / img.width, scaleY: $canvas.height / img.height 로 속성 설정
       if ($backgroundImage) {
         fabric.Image.fromURL($backgroundImage, function (img) {
@@ -52,6 +36,7 @@
             scaleX: $canvas.width / img.width,
             scaleY: $canvas.height / img.height,
           })
+          $savedCanvas = null
         })
       }
 
@@ -138,7 +123,7 @@
   }
 
   // 아이템 추가 및 삭제
-  $: if ($canvas) {
+  $: if ($canvas && !$savedCanvas) {
     const objects = $canvas.getObjects()
 
     for (const costume in $hasCostume) {
