@@ -13,13 +13,13 @@ export default function formatDate(dateString: string): string {
   const diffMinutes = Math.floor(diffMs / MINUTE_MS)
 
   if (diffMs < MINUTE_MS) {
-    return '방금전'
+    return '방금 전'
   } else if (diffMs < HOUR_MS) {
-    return `${diffMinutes}분전`
+    return `${diffMinutes}분 전`
   } else if (diffMs < DAY_MS) {
-    return `${diffHours}시간전`
+    return `${diffHours}시간 전`
   } else if (diffDays <= 30) {
-    return `${diffDays}일전`
+    return `${diffDays}일 전`
   } else {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
