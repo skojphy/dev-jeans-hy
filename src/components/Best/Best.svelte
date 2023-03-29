@@ -29,7 +29,6 @@
       delay: 1000,
       disableOnInteraction: true, // 쓸어 넘기거나 버튼 클릭 시 자동 슬라이드 정지.
     },
-    centeredSlides: true,
   }
 
   $: bestBunnies = $bunnyQuery?.data?.data?.content || []
@@ -38,7 +37,7 @@
 <div class="container">
   <div class="header">
     <h2>가장 인기가 많은 버니들이에요!</h2>
-    <a class="link" href="/bunny-list/ranked" use:link>보러가기</a>
+    <a class="link" href="/bunny-list/ranked" use:link>보러 가기</a>
   </div>
 
   <swiper-container class="mySwiper" {...swiperConfig} pagination-dynamic-bullets={true}>

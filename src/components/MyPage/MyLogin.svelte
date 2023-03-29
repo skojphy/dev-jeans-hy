@@ -2,7 +2,7 @@
   import Login from '../Login.svelte'
   import Noti from '../Noti.svelte'
 
-  export let title = '마이페이지를 이용하려면 로그인 하세요.'
+  export let title = '마이페이지를 이용하려면 로그인하세요.'
 </script>
 
 <div class="container">
@@ -11,7 +11,7 @@
 
     <Login />
   </div>
-  <Noti style="margin: 30px 0;" icon="❤️" text="로그인후 나만의 버니를 올려 자랑해보세요!" />
+  <Noti style="margin: 30px 0;" icon="❤️" text="로그인 후 나만의 버니를 올려 자랑해 보세요!" />
 </div>
 
 <style>

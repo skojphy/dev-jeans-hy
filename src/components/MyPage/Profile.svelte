@@ -34,7 +34,7 @@
     <div class="detail">
       <span>{$userInfo?.lastName} {$userInfo?.firstName}</span>
       <!-- TODO. 버니 업로드 모달 띄우기 -->
-      <button type="button" on:click={onClick}>나의 버니 업로드하기</button>
+      <button type="button" on:click={onClick}>나의 버니 만들어서 업로드하기</button>
     </div>
   </div>
   <Noti text="버니는 최대 6개까지 업로드 가능합니다." />

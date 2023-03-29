@@ -75,7 +75,7 @@
 </script>
 
 <Modal bind:showModal>
-  <h2 slot="header">짜잔~ 완성된 이미지에요.</h2>
+  <h2 slot="header">짜잔~ 완성된 이미지예요.</h2>
   <img src={resultImage} alt="데브진스" />
   <button class="save" on:click={saveImage}>저장하기</button>
 </Modal>

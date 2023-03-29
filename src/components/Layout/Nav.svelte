@@ -1,17 +1,17 @@
 <script lang="ts">
-  import Bunny from 'src/assets/icons/Bunny.png'
-  import New from 'src/assets/icons/new.png'
-  import Trends from 'src/assets/icons/trends.svg'
-  import Profile from 'src/assets/icons/profile.svg'
+  import Bunny from 'src/assets/icons/bunny.svg'
+  import New from 'src/assets/icons/new.svg'
+  import Best from 'src/assets/icons/best.svg'
+  import User from 'src/assets/icons/user.svg'
   import {link, location} from 'svelte-spa-router'
   import A11yhidden from '../A11yhidden.svelte'
 
   // TODO. 네비게이션바 만들기
   const items = [
     {name: '버니 만들기', icon: Bunny, type: 'link', path: '/'},
-    {name: '트렌드', icon: Trends, type: 'link', path: '/bunny-list/ranked'},
+    {name: '트렌드', icon: Best, type: 'link', path: '/bunny-list/ranked'},
     {name: '실시간', icon: New, type: 'link', path: '/bunny-list/latest'},
-    {name: '나의 버니들', icon: Profile, type: 'link', path: '/my'},
+    {name: '나의 버니들', icon: User, type: 'link', path: '/my'},
   ]
 </script>
 

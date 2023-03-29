@@ -48,16 +48,16 @@
 </script>
 
 <div class="container">
-  <h2>배경을 꾸며보세요!</h2>
+  <h2>배경을 꾸며 보세요!</h2>
 
   <ul>
     <li>
-      <h3>배경색</h3>
+      <h3>배경 색</h3>
       <ColorPicker bind:hex={$background} isA11yClosable={false} label="선택하기" />
     </li>
 
     <li>
-      <h3>배경이미지</h3>
+      <h3>배경 이미지</h3>
 
       <div class="buttonWrapper">
         <button

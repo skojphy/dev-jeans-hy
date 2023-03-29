@@ -24,7 +24,7 @@
       {#if !$query?.data?.length}
         <div class="no-bunny">
           <h2>나의 버니가 없어요!</h2>
-          <span>나만의 버니를 업로드해보세요.</span>
+          <span>나만의 버니를 업로드해 보세요.</span>
           <img src={devJeans} alt="버니" class="no-bunny-img" />
         </div>
       {:else}
