@@ -65,5 +65,6 @@
     border-radius: 6px;
     margin-top: 30px;
     color: rgb(104, 104, 104);
+    cursor: pointer;
   }
 </style>
