@@ -82,7 +82,7 @@
 
 <div class="container">
   <h2>최종 결과물이 맘에 드시나요?</h2>
-  <button class="upload" on:click={handleUpload}>마이페이지에 업로드할래요</button>
+  <button class="upload" on:click={handleUpload}>업로드해서 자랑할래요</button>
   <button on:click={handleSaveImage}>파일 이미지로 저장할래요</button>
 </div>
 
