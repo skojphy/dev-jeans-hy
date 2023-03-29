@@ -37,8 +37,6 @@
             scaleY: $canvas.height / img.height,
           })
 
-          // 캔버스의 오브젝트를 순회하며 버니는 selectable = false, 사진은 selectable = true로 설정
-
           $savedCanvas = null
         })
       }
@@ -97,6 +95,7 @@
     $canvas.setBackgroundColor($background, () => {
       $canvas.renderAll()
     })
+    // 캔버스의 오브젝트를 순회하며 버니는 selectable = false, 사진은 selectable = true로 설정
     $canvas.getObjects().forEach((obj) => {
       if (obj.itemType === 'bunny' || obj.itemType === 'costume') {
         obj.selectable = false
