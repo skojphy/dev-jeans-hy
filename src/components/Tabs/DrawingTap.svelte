@@ -54,7 +54,7 @@
               aria-label="삭제"
               on:click={() => {
                 // 활성화된 모든 객체 삭제
-                $canvas.getObjects().forEach((obj) => {
+                $canvas.getActiveObjects().forEach((obj) => {
                   // 그림과 추가된 사진만 삭제함. (버니, 배경화면은 삭제 안함)
                   if (!obj.itemType || obj.itemType === 'photo') $canvas.remove(obj)
                 })
