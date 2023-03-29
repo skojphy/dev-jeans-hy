@@ -6,11 +6,14 @@
   import {push, replace} from 'svelte-spa-router'
   import {uploadPhoto} from 'src/api/service/photo'
   import {resultBunny} from 'src/store/resultBunny'
+  import {ScaleOut} from 'svelte-loading-spinners'
   import Layout from 'src/components/Layout/Layout.svelte'
   import Noti from 'src/components/Noti.svelte'
   import devJeans from 'src/assets/dev-jeans.png'
 
   let title
+
+  $: isUploading = false
 
   onMount(() => {
     logEvent(analytics, '업로드 탭 진입')
@@ -25,9 +28,11 @@
     })
   }
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
+    isUploading = true
+
     if (!title) {
-      toast.push('제목을 입력해주세요.', {
+      toast.push('제목을 입력해 주세요.', {
         theme: {
           '--toastBackground': '#ff595eaa',
         },
@@ -75,11 +80,13 @@
           },
         })
       else
-        toast.push('문제가 발생했습니다.\n 잠시후에 다시 시도해주세요.', {
+        toast.push('문제가 발생했습니다.\n 잠시후에 다시 시도해 주세요.', {
           theme: {
             '--toastBackground': '#ff595eaa',
           },
         })
+    } finally {
+      isUploading = false
     }
   }
 
@@ -88,19 +95,25 @@
   }
 </script>
 
-<Layout title="나의 버니를 자랑해보세요!">
+<Layout title="나의 버니를 자랑해 보세요!">
   <div class="container">
     {#if $resultBunny?.origin}
-      <span class="detail">{'짜잔~ 완성된 버니에요! (｡･ω･｡)ﾉ♡'}</span>
+      <span class="detail">{'짜잔~ 완성된 버니예요! (｡･ω･｡)ﾉ♡'}</span>
     {:else}
-      <span class="detail">버니를 업로드해주세요!</span>
+      <span class="detail">버니를 업로드해 주세요!</span>
     {/if}
     <img class={$resultBunny?.origin ? '' : 'default'} src={$resultBunny?.origin || devJeans} alt="데브진스" />
     <div class="toolbar">
-      <Noti icon="❤️" text="멋진 제목을 입력해서 나의 버니를 자랑해보세요." />
+      <Noti icon="❤️" text="멋진 제목을 입력해서 나의 버니를 자랑해 보세요." />
       <div class="input-wrapper">
         <input placeholder="나의 귀여운 버니 🐰" class="title" type="text" bind:value={title} />
-        <button class="save" on:click={handleUpload}>업로드</button>
+        <button class="save" on:click={handleUpload}
+          >{#if isUploading}
+            <ScaleOut size="35" color="#ff595e" unit="px" duration="1s" />
+          {:else}
+            업로드
+          {/if}</button
+        >
       </div>
     </div>
   </div>
