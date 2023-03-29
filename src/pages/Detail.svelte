@@ -36,6 +36,8 @@
 
   $: deleteLoading = false
 
+  $: isLoaded = false
+
   const client = useQueryClient()
 
   // TODO. 삭제 되었습니다 토스트 띄우기
@@ -98,10 +100,14 @@
     </div>
 
     <img
-      class={$photoQuery?.data?.imageUrl ? '' : 'default'}
-      src={$photoQuery?.data?.imageUrl || devJeans}
+      class={isLoaded ? '' : 'hidden'}
+      src={$photoQuery?.data?.imageUrl}
       alt="버니"
+      on:load={() => {
+        isLoaded = true
+      }}
     />
+    <img class="default {isLoaded ? 'hidden' : ''}" src={devJeans} alt="버니" />
 
     <div class="description">
       <div class="like">
@@ -116,6 +122,16 @@
 </Layout>
 
 <style>
+  .hidden {
+    overflow: hidden;
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    clip-path: circle(0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    white-space: nowrap;
+  }
   .container {
     width: 100%;
     background-color: #fff;
