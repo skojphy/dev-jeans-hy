@@ -89,10 +89,6 @@
       isUploading = false
     }
   }
-
-  $: {
-    console.log({resultBunny: $resultBunny})
-  }
 </script>
 
 <Layout title="나의 버니를 자랑해 보세요!">

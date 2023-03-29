@@ -21,7 +21,6 @@
 
   const onScroll = (e) => {
     const element = e.target
-    console.log('hello')
 
     const offset = horizontal
       ? e.target.scrollWidth - e.target.clientWidth - e.target.scrollLeft

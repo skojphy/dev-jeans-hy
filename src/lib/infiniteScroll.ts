@@ -4,7 +4,6 @@ export const infiniteScroll = ({fetch, element}: {fetch: () => void; element: HT
       (entries) => {
         const first = entries[0]
         if (first.isIntersecting) {
-          console.log('Is Intersecting')
           fetch()
         }
       },

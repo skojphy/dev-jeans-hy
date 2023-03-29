@@ -6,8 +6,6 @@
 
   let title = '마이페이지를 이용하려면 로그인 하세요.'
 
-  $: console.log({$querystring})
-
   $: {
     const redirect = $querystring.split('=')[1]
     if (redirect === 'decorate') title = '나의 버니를 자랑하기 위해 로그인하세요.'
